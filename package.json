@@ -1,0 +1,184 @@
+{
+  "name": "breakpointsmanager",
+  "displayName": "BreakpointsManager",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "icon": "media/rook.svg",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "breakpointsmanager",
+          "title": "Breakpoints Manager",
+          "icon": "./media/notebook.svg"
+        }
+      ]
+    },
+    "views": {
+      "debug": [
+        {
+          "id": "breakpointsCollection",
+          "name": "Breakpoints Manager",
+          "contextualTitle": "Breakpoints Manager"
+
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "breakpointsmanager.createCollection",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.removeSelectedCollections",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.refreshTree",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.exportAllCollections",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.exportSelectedCollections",
+          "when": "view === breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.importCollection",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        },
+        {
+          "command": "breakpointsmanager.searchCollection",
+          "when": "view == breakpointsCollection",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "breakpointsmanager.updateCollection",
+          "when": "view == breakpointsCollection",
+          "group": "inline"
+        },
+        {
+          "command": "breakpointsmanager.setActiveCollection",
+          "when": "view == breakpointsCollection",
+          "group": "inline"
+        },
+        {
+          "command": "breakpointsmanager.removeCollection",
+          "when": "view == breakpointsCollection",
+          "group": "inline"
+        },
+        {
+          "command": "breakpointsmanager.exportCollection",
+          "when": "view == breakpointsCollection",
+          "group": "inline"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "breakpointsmanager.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "breakpointsmanager.createCollection",
+        "title": "Create Collection (Breakpoints Manager)",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "breakpointsmanager.removeCollection",
+        "title": "Remove Collection (Breakpoints Manager)",
+        "icon": "$(close)"
+      },
+      {
+        "command": "breakpointsmanager.removeAllCollections",
+        "title": "Remove All Collections (Breakpoints Manager)",
+        "icon": "$(close-all)"
+      },
+      {
+        "command": "breakpointsmanager.removeSelectedCollections",
+        "title": "Remove Selected Collections (Breakpoints Manager)",
+        "icon": "$(close-all)"
+      },
+      {
+        "command": "breakpointsmanager.setActiveCollection",
+        "title": "Set Active Breakpoints Collection (Breakpoints Manager)",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "breakpointsmanager.updateCollection",
+        "title": "Update Collection (Breakpoints Manager)",
+        "icon": "$(save)"
+      },
+      {
+        "command": "breakpointsmanager.exportCollection",
+        "title": "Export Collection as JSON (Breakpoints Manager)",
+        "icon": "$(save)"
+      },
+      {
+        "command": "breakpointsmanager.exportAllCollections",
+        "title": "Export All Collections as JSON (Breakpoints Manager)",
+        "icon": "$(save-all)"
+      },
+      {
+        "command": "breakpointsmanager.exportSelectedCollections",
+        "title": "Export Selected Collections as JSON (Breakpoints Manager)",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "breakpointsmanager.importCollection",
+        "title": "Import Collection from JSON (Breakpoints Manager)",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "breakpointsmanager.refreshTree",
+        "title": "Refresh (Breakpoints Manager)",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "breakpointsmanager.searchCollection",
+        "title": "Search Collection (Breakpoints Manager)",
+        "icon": "$(search)"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/circular-json": "^0.4.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "circular-json": "^0.5.9",
+    "eslint": "^9.9.1",
+    "typescript": "^5.5.4"
+  }
+}
