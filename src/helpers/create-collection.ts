@@ -4,14 +4,14 @@ import { BreakpointCollection, ExportableCollection } from "../models/collection
 import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { CommandType } from "../command-type.model";
-import { ExportableBreakpoint } from "../models/exportable-breakpoint";
 
 /**
- * The function `createCollection` creates a new breakpoint collection with the current breakpoints and
- * saves it.
- * @param {string | undefined} requestedCollectionName - The `requestedCollectionName` parameter is a
- * string that represents the name of the collection that the user wants to create. It is optional and
- * can be `undefined` if the user does not provide a name for the collection.
+ * The function `createCollection` creates a new breakpoint collection based on the current breakpoints
+ * and saves it in the context.
+ * @param {string | undefined} requestedCollectionName - The `requestedCollectionName` parameter in the
+ * `createCollection` function is a string that represents the name of the collection that the user
+ * wants to create. If this parameter is provided and the necessary conditions are met, a new
+ * breakpoint collection will be created with the specified name.
  */
 export function createCollection(requestedCollectionName: string | undefined) {
   const currentBreakpoints = vscode.debug.breakpoints; // Get current breakpoints

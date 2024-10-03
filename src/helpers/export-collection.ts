@@ -5,13 +5,14 @@ import * as circularJson from "circular-json";
 import * as fs from "fs";
 
 /**
- * The function `exportCollection` exports a selected breakpoint collection to a JSON file after
- * converting it to an exportable format.
- * @param {TreeItemLabel} collectionName - `collectionName` is a parameter representing the name of
- * the collection to be exported. It is of type `TreeItemLabel`.
- * @param {BreakpointCollection[]} collections - The `collections` parameter in the
- * `exportCollection` function is an array of `BreakpointCollection` objects. This array contains
- * multiple collections of breakpoints that can be exported.
+ * The function `exportCollection` exports a collection of data to a JSON file after converting it to a
+ * string.
+ * @param {TreeItemLabel} collectionName - The `collectionName` parameter is the label of the tree item
+ * representing the collection that you want to export.
+ * @param {ExportableCollection[]} collections - The `collections` parameter in the `exportCollection`
+ * function is an array of `ExportableCollection` objects that you want to export to a JSON file. Each
+ * `ExportableCollection` object represents a collection of data that you want to save in the JSON
+ * file.
  */
 export async function exportCollection(
   collectionName: TreeItemLabel,
@@ -33,12 +34,14 @@ export async function exportCollection(
 }
 
 /**
- * The function `openSaveDialog` asynchronously opens a save dialog for a JSON file with a default file
- * name based on a provided collection name.
- * @param collectionName - `collectionName` is a `vscode.TreeItem` object representing an item in a
- * tree view within the Visual Studio Code editor.
- * @returns The function `openSaveDialog` is returning a Promise that resolves to a `vscode.Uri` object
- * or `undefined`.
+ * The function `openSaveDialog` in TypeScript opens a save dialog for a JSON file with a default
+ * filename based on the provided collection name.
+ * @param collectionName - The `collectionName` parameter in the `openSaveDialog` function is of type
+ * `vscode.TreeItem`. It represents an item in a tree view, typically used in Visual Studio Code
+ * extensions to display hierarchical data.
+ * @returns The `openSaveDialog` function is returning a Promise that resolves to a `vscode.Uri` object
+ * representing the URI of the selected file in the save dialog. If no file is selected or the dialog
+ * is canceled, it will return `undefined`.
  */
 async function openSaveDialog(
   collectionName: vscode.TreeItem

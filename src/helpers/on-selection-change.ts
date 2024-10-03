@@ -3,7 +3,7 @@ import { GlobalState } from "../global-state";
 import { ExportableCollection } from "../models/collection-types.model";
 
 /**
- * The function `onSelectionChange` listens for changes in selection in a tree view and adds selected
+ * The function `onSelectionChange` listens for selection changes in a tree view and adds selected
  * collections to a global state.
  */
 export function onSelectionChange(): void {

@@ -4,10 +4,10 @@ import { identifier } from "../extension";
 import { GlobalState } from "../global-state";
 
 /**
- * The function persistCollectionsToContext asynchronously updates breakpoint collections in the global
- * state context.
- * @param {BreakpointCollection[]} collections - An array of BreakpointCollection
- * objects that need to be persisted to the context.
+ * The function persistCollectionsToContext asynchronously updates a global state with new breakpoint
+ * collections.
+ * @param {BreakpointCollection[]} collections - The `collections` parameter in the
+ * `persistCollectionsToContext` function is an array of `BreakpointCollection` objects.
  */
 export async function persistCollectionsToContext(
   collections: BreakpointCollection[]
@@ -22,31 +22,23 @@ export async function persistCollectionsToContext(
   ]);
 }
 
-
 /**
- * The function `loadCollectionsFromContext` retrieves and converts saved breakpoint collections from
- * the global state context in TypeScript.
+ * The function `loadCollectionsFromContext` retrieves saved breakpoint collections from the global
+ * state context in TypeScript.
  * @returns The function `loadCollectionsFromContext` returns an array of `BreakpointCollection`
- * objects. If there are saved collections in the global state context, it tries to convert them to
- * source collections, add them to the collection provider, and then return the restored collections.
- * If there are no saved collections or an error occurs during the transformation process, an empty
- * array is returned.
+ * objects. If there are saved collections in the global state context, it attempts to create and
+ * refresh each collection before returning the array of saved collections. If an error occurs during
+ * this process, it logs the error and shows an information message indicating that the transformation
+ * of context collections failed. If there are no saved collections, an
  */
 export function loadCollectionsFromContext(): BreakpointCollection[] {
   const globalState: GlobalState = GlobalState.getInstance();
   const savedCollections =
     globalState.context?.globalState.get<BreakpointCollection[]>(identifier) ??
     [];
-  const workspace_uri_path = vscode.workspace.workspaceFolders![0].uri.path;
 
   if (savedCollections?.length > 0) {
     try {
-      // TODO: might not needed
-      // const restoredCollections = convertToSourceCollections(
-      //   savedCollections,
-      //   workspace_uri_path!
-      // );
-
       savedCollections.map((savedCollection) => {
         globalState.collectionProvider?.createCollection(savedCollection.name);
         globalState.collectionProvider?.refresh();
@@ -65,15 +57,13 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
 }
 
 /**
- * The function `updateCollectionsInContext` updates breakpoint collections in the VS Code extension
- * context.
+ * The function `updateCollectionsInContext` updates the breakpoint collections in the provided
+ * `vscode.ExtensionContext`.
  * @param context - The `context` parameter is an instance of `vscode.ExtensionContext`, which provides
- * access to various functionalities and resources of the VS Code extension. It is typically used to
- * store and retrieve global state data, manage subscriptions, and interact with the VS Code API.
- * @param {BreakpointCollection[]} collections - The `collections` parameter in the
- * `updateCollectionsInContext` function is an array of `BreakpointCollection` objects. These objects
- * likely represent different sets of breakpoints or breakpoints organized in some way. The function
- * updates the global state in the provided `vscode.ExtensionContext` with the new `collections
+ * access to various functionalities and resources within the VS Code extension. It is typically used
+ * to store and retrieve global state, manage subscriptions, and interact with the VS Code API.
+ * @param {BreakpointCollection[]} collections - The `collections` parameter is an array of
+ * `BreakpointCollection` objects.
  */
 export async function updateCollectionsInContext(
   context: vscode.ExtensionContext,

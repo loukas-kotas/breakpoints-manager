@@ -6,12 +6,12 @@ import { identifier } from '../extension';
 import { ExportableCollection } from '../models/collection-types.model';
 
 /**
- * This function removes a collection item from various places in the global state and displays
- * appropriate messages in a TypeScript environment.
- * @param {CollectionTreeItem} collectionItem - The `collectionItem` parameter is an object of type
- * `CollectionTreeItem`, which likely represents an item in a collection tree. It contains information
- * about the collection item, such as its label and possibly other properties related to the
- * collection.
+ * This TypeScript function removes a collection item from a collection tree and updates the context
+ * and selected collections accordingly.
+ * @param {CollectionTreeItem} collectionItem - The `collectionItem` parameter in the
+ * `removeCollection` function is of type `CollectionTreeItem`. It seems to represent an item in a
+ * collection tree, possibly used in a user interface to display collections. The function removes this
+ * collection item from various places such as the context collections, the collection tree
  */
 export function removeCollection(collectionItem: CollectionTreeItem) {
   const globalState = GlobalState.getInstance();

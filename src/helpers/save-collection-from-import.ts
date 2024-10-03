@@ -1,22 +1,17 @@
 import {
-  BreakpointCollection,
   ExportableCollection,
 } from "../models/collection-types.model";
 import { GlobalState } from "../global-state";
 import { convertToSourceBreakpoint } from "./convert-to-source-breakpoint";
 import * as vscode from "vscode";
-import { updateCollectionsInContext } from "./persist-collection";
 
 /**
- * The function `promoteCollectionFromImport` takes an exported breakpoint collection, converts it to
- * source breakpoints, adds it to the global state, and returns the restored collection.
- * @param {ExportableCollection} collection - The `collection` parameter in the
- * `promoteCollectionFromImport` function is of type `ExportableCollection`. It represents a
- * collection of breakpoints that have been exported from a previous state and need to be saved in the
- * current state.
- * @returns The function `promoteCollectionFromImport` is returning a `BreakpointCollection` object that
- * contains the name of the collection and an array of `vscode.SourceBreakpoint` objects representing
- * the restored breakpoints from the imported `ExportableCollection`.
+ * The function `promoteCollectionFromImport` takes an `ExportableCollection` as input, creates a
+ * collection in the global state, refreshes the collection provider, and converts breakpoints to
+ * source breakpoints.
+ * @param {ExportableCollection} collection - The `collection` parameter is of type
+ * `ExportableCollection`, which likely contains information about a collection of items that can be
+ * exported or imported.
  */
 const promoteCollectionFromImport = (
   collection: ExportableCollection
@@ -32,21 +27,12 @@ const promoteCollectionFromImport = (
       convertToSourceBreakpoint(breakpoint, workspace_path!)!
     )
   );
-  // const restoredCollection = {
-  //   name: collection.name,
-  //   breakpoints: restoredBreakpoints,
-  // };
-  // globalState.collections.push(collection);
-
-  // return restoredCollection;
 };
 
 /**
- * The function `promoteCollectionsFromImport` takes an array of `ExportableCollection` objects,
- * maps over them, and saves each collection using `promoteCollectionFromImport` with the collection's
- * name.
- * @param {ExportableCollection[]} collections - An array of ExportableCollection
- * objects.
+ * The function `promoteCollectionsFromImport` iterates over an array of `ExportableCollection` objects
+ * and calls `promoteCollectionFromImport` on each one.
+ * @param {ExportableCollection[]} collections - An array of `ExportableCollection` objects.
  */
 export const promoteCollectionsFromImport = (
   collections: ExportableCollection[]
