@@ -20,9 +20,6 @@ export async function persistCollectionsToContext(
     ...savedCollections,
     ...collections,
   ]);
-  vscode.window.showInformationMessage(
-    "Context: Updated with Breakpoints Collections"
-  );
 }
 
 
@@ -51,7 +48,7 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
       // );
 
       savedCollections.map((savedCollection) => {
-        globalState.collectionProvider?.addCollection(savedCollection.name);
+        globalState.collectionProvider?.createCollection(savedCollection.name);
         globalState.collectionProvider?.refresh();
       });
 
@@ -84,5 +81,4 @@ export async function updateCollectionsInContext(
 ) {
   await context.globalState.update(identifier, []);
   await context.globalState.update(identifier, collections);
-  vscode.window.showInformationMessage("Breakpoint collections updated");
 }

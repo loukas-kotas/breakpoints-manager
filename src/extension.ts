@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
   init(context);
 
   const createCollection = vscode.commands.registerCommand(
-    "breakpointsmanager.createCollection",
+    CommandType.CreateCollection,
     () => {
       CreateCollectionCommand();
     }
@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const setActiveCollection = vscode.commands.registerCommand(
-    "breakpointsmanager.setActiveCollection",
+    CommandType.SetActiveCollection,
     (selectedCollection: CollectionTreeItem) => {
       SetActiveCollectionCommand(selectedCollection);
     }
@@ -104,6 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {}
 
 function init(context: vscode.ExtensionContext): void {
+  // Initialize values
   const collectionTreeProvider = new CollectionTreeProvider();
   const treeView = vscode.window.createTreeView("breakpointsCollection", {
     treeDataProvider: collectionTreeProvider,
@@ -115,11 +116,17 @@ function init(context: vscode.ExtensionContext): void {
   // Load collections from context if they exist
   globalState.context.globalState.update(identifier, loadCollectionsFromContext());
 
+  // empty selected collections
   globalState.selectedCollections = [];
+
+  // store workspace path length of current directory
   globalState.workspace_uri_path_length =
     vscode.workspace.workspaceFolders![0].uri.path.length;
+
+  // store workspace path of current directory
   globalState.workspace_uri_path =
     vscode.workspace.workspaceFolders![0].uri.path;
 
+  // Listen for changes when a selection changes
   onSelectionChange();
 }

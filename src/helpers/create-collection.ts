@@ -35,10 +35,10 @@ export function createCollection(requestedCollectionName: string | undefined) {
       persistCollectionsToContext([exportableCollection]);
     }
     // Update Collection Tree Provider
-    globalState.collectionProvider.addCollection(exportableCollection.name);
+    globalState.collectionProvider.createCollection(exportableCollection.name);
 
     // Update last action applied
-    globalState.lastActionApplied = CommandType.AddCollection;
+    globalState.lastActionApplied = CommandType.CreateCollection;
 
     // Show informational message
     vscode.window.showInformationMessage(

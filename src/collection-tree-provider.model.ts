@@ -31,15 +31,15 @@ export class CollectionTreeProvider
     );
   }
 
-  addCollection(name: string): void {
+  createCollection(name: string): void {
     const label: TreeItemLabel = { label: name, highlights: [[0, 100],[100,200]]};
     this.collections.push(new CollectionTreeItem(label));
     this.refresh();
   }
 
-  addCollections(collectionNames: string[] | undefined): void {
+  createCollections(collectionNames: string[] | undefined): void {
     collectionNames?.forEach((name) => {
-      this.addCollection(name);
+      this.createCollection(name);
     });
     this.refresh();
   }

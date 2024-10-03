@@ -1,5 +1,5 @@
 export enum CommandType {
-  AddCollection = "breakpointsmanager.addCollection",
+  CreateCollection = "breakpointsmanager.createCollection",
   RemoveSelectedCollections = "breakpointsmanager.removeSelectedCollections",
   SetActiveCollection = "breakpointsmanager.setActiveCollection",
   ExportSelectedCollections = "breakpointsmanager.exportSelectedCollections",

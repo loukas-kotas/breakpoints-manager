@@ -24,7 +24,7 @@ const promoteCollectionFromImport = (
   const globalState: GlobalState = GlobalState.getInstance();
   const workspace_path = globalState.workspace_uri_path;
   const restoredBreakpoints: vscode.SourceBreakpoint[] = [];
-  globalState.collectionProvider?.addCollection(collection.name);
+  globalState.collectionProvider?.createCollection(collection.name);
   globalState.collectionProvider?.refresh();
 
   collection.breakpoints.forEach((breakpoint) =>
