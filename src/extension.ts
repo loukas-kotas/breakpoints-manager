@@ -9,15 +9,15 @@ import {
 import { loadCollectionsFromContext } from "./helpers/persist-collection";
 import {
   CreateCollectionCommand,
+  DeleteSelectedCollectionsCommand,
+  ExportSelectedCollectionsCommand,
   ImportCollectionCommand,
-  setActiveCollectionCommand,
+  RefreshTreeCommand,
+  SearchCollectionCommand,
+  SetActiveCollectionCommand,
+  UpdateCollectionCommand,
 } from "./commands";
-import { RefreshTreeCommand } from "./commands/refresh-tree";
-import { SearchCollectionCommand } from "./commands/search-collection";
 import { GlobalState } from "./global-state";
-import { UpdateCollectionCommand } from "./commands/update-collection";
-import { ExportSelectedCollectionsCommand } from "./commands/export-selected-collections";
-import { DeleteSelectedCollectionsCommand } from "./commands/delete-selected-collections";
 import { onSelectionChange } from "./helpers/on-selection-change";
 
 export const identifier = "breakpointCollections";
@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
   const setActiveCollection = vscode.commands.registerCommand(
     "breakpointsmanager.setActiveCollection",
     (selectedCollection: CollectionTreeItem) => {
-      setActiveCollectionCommand(selectedCollection);
+      SetActiveCollectionCommand(selectedCollection);
     }
   );
 
