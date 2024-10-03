@@ -9,7 +9,6 @@ import {
 import { loadCollectionsFromContext } from "./helpers/persist-collection";
 import {
   CreateCollectionCommand,
-  DisplosableCommand,
   ImportCollectionCommand,
   setActiveCollectionCommand,
 } from "./commands";
@@ -32,14 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
   // let collections: BreakpointCollection[];
   // Initilization function when // register tree view
   init(context);
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand(
-    "breakpointsmanager.helloWorld",
-    DisplosableCommand
-  );
 
   const createCollection = vscode.commands.registerCommand(
     "breakpointsmanager.createCollection",
@@ -98,7 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    disposable,
     createCollection,
     setActiveCollection,
     removeSelectedCollections,

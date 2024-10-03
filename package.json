@@ -80,10 +80,6 @@
     },
     "commands": [
       {
-        "command": "breakpointsmanager.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "breakpointsmanager.createCollection",
         "title": "Create Collection (Breakpoints Manager)",
         "icon": "$(plus)"
