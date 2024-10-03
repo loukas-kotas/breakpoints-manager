@@ -41,12 +41,7 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
         globalState.selectedCollections =
           globalState.selectedCollections.filter(
             (collection) => collection.name !== collectionItem.label.label
-          );
-        
-        // Display informational message 
-        vscode.window.showInformationMessage(
-          `Collection "${collectionItem.label.label}" removed.`
-        );
+          );        
       }
     } catch (e) {
       vscode.window.showErrorMessage(`Error: ${e}`);
