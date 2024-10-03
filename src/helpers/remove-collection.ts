@@ -2,6 +2,8 @@ import { CollectionTreeItem } from "../collection-tree-provider.model";
 import { GlobalState } from "../global-state";
 import { updateCollectionsInContext } from "./persist-collection";
 import * as vscode from "vscode";
+import { identifier } from '../extension';
+import { ExportableCollection } from '../models/collection-types.model';
 
 /**
  * This function removes a collection item from various places in the global state and displays
@@ -15,22 +17,35 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
   const globalState = GlobalState.getInstance();
 
   if (globalState.collectionProvider) {
-    globalState.collections = globalState.collections.filter(
+    // Retrieve collections stored in context
+    const contextCollections: ExportableCollection[] = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    
+    // remove collection from context collections
+    const remainingCollections = contextCollections.filter(
       (col) => col.name !== collectionItem.label.label
-    ); // remove collection from here too
+    );
+
     try {
       if (globalState.context) {
+        
+        // update context with the remaining collections, after selected collection removal.
         updateCollectionsInContext(
           globalState.context,
-          globalState.collections
+          remainingCollections
         );
+        
+        // update collection tree provider
         globalState.collectionProvider.removeCollection(collectionItem.label); // remove collection from the collection tree
+        
+        // remove collection from selectedCollections if exists in there
         globalState.selectedCollections =
           globalState.selectedCollections.filter(
             (collection) => collection.name !== collectionItem.label.label
-          ); // remove collection from selected collection if exists in there.
+          );
+        
+        // Display informational message 
         vscode.window.showInformationMessage(
-          `Collection "${collectionItem.label}" removed.`
+          `Collection "${collectionItem.label.label}" removed.`
         );
       }
     } catch (e) {

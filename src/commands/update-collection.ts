@@ -1,7 +1,7 @@
 import { GlobalState } from "../global-state";
 import * as vscode from "vscode";
-import { toExportableBreakpointCollection } from "../helpers/to-breakpoint-internal";
-import { BreakpointCollection } from "../create-collection";
+import { toExportableCollection } from "../helpers/to-breakpoint-internal";
+import { BreakpointCollection } from "../models/collection-types.model";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 
 export function UpdateCollectionCommand() {
@@ -10,7 +10,7 @@ export function UpdateCollectionCommand() {
     globalState.activeCollection!.breakpoints = [...vscode.debug.breakpoints];
     let workspace_uri_path_length =
       vscode.workspace.workspaceFolders![0].uri.path.length;
-    const exportableCollection = toExportableBreakpointCollection(
+    const exportableCollection = toExportableCollection(
       globalState.activeCollection as BreakpointCollection,
       workspace_uri_path_length
     );

@@ -1,9 +1,10 @@
 import * as vscode from "vscode";
 import { GlobalState } from "../global-state";
-import { BreakpointCollection } from "../create-collection";
-import { toExportableBreakpointCollection } from "../helpers/to-breakpoint-internal";
+import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
+import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { CommandType } from "../command-type.model";
+import { ExportableBreakpoint } from "../models/exportable-breakpoint";
 
 /**
  * The function `createCollection` creates a new breakpoint collection with the current breakpoints and
@@ -25,20 +26,21 @@ export function createCollection(requestedCollectionName: string | undefined) {
       ) as vscode.Breakpoint[],
     };
 
-    let workspace_uri_path_length =
-      vscode.workspace.workspaceFolders![0].uri.path.length;
+    // Convert MapCollection to ExportableCollection
+    const workspace_uri_path_length = vscode.workspace.workspaceFolders![0].uri.path.length;
+    const exportableCollection: ExportableCollection = toExportableCollection(newCollection, workspace_uri_path_length);
 
-    // Save the new collection
-    globalState.collections.push(newCollection);
-    const exportableCollection = toExportableBreakpointCollection(
-      newCollection,
-      workspace_uri_path_length
-    );
+    // Save the new collection in the context
     if (globalState.context) {
       persistCollectionsToContext([exportableCollection]);
     }
-    globalState.collectionProvider.addCollection(newCollection.name);
+    // Update Collection Tree Provider
+    globalState.collectionProvider.addCollection(exportableCollection.name);
+
+    // Update last action applied
     globalState.lastActionApplied = CommandType.AddCollection;
+
+    // Show informational message
     vscode.window.showInformationMessage(
       `Breakpoint Collection "${requestedCollectionName}" created.`
     );

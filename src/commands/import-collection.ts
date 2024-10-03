@@ -4,16 +4,17 @@ import * as circularJson from "circular-json";
 import { promoteCollectionsFromImport } from "../helpers/save-collection-from-import";
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
-import { ExportedBreakpointCollection } from "../models/breakpoints.model";
+import { persistCollectionsToContext } from "../helpers/persist-collection";
+import { ExportableCollection } from "../models/collection-types.model";
 
 export async function ImportCollectionCommand() {
   const globalState = GlobalState.getInstance();
-  await importCollections();
+  await importCollections(globalState);
 
   globalState.lastActionApplied = CommandType.ImportCollection;
 }
 
-async function importCollections() {
+async function importCollections(globalState: GlobalState) {
   const jsonFileUri = await vscode.window.showOpenDialog({
     filters: { "JSON Files": ["json"] },
     canSelectMany: false,
@@ -23,7 +24,7 @@ async function importCollections() {
     const jsonContent = fs.readFileSync(jsonFileUri[0].fsPath, "utf8");
     const importedCollections = circularJson.parse(
       jsonContent
-    ) as ExportedBreakpointCollection[];
+    ) as ExportableCollection[];
 
     const fsPath = jsonFileUri[0].fsPath;
     const filename = fsPath.substring(
@@ -32,6 +33,7 @@ async function importCollections() {
     );
 
     promoteCollectionsFromImport(importedCollections);
+    persistCollectionsToContext(importedCollections);
     vscode.window.showInformationMessage(
       `Collection '${filename}' imported successfully.`
     );

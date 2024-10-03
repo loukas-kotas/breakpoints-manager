@@ -1,3 +1,3 @@
-import { BreakpointCollection } from "../create-collection";
+import { BreakpointCollection } from "./collection-types.model";
 
 export type ActiveCollection = BreakpointCollection | null;

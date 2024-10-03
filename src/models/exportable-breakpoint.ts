@@ -1,9 +1,10 @@
 import { Range } from "vscode";
+import * as vscode from 'vscode';
 
-export class ExportableBreakpoint {
+export class ExportableBreakpoint extends vscode.Breakpoint {
   location: string;
   line: Range;
-  enabled?: boolean;
+  enabled: boolean;
   condition?: string;
   hitCondition?: string;
   logMessage?: string;
@@ -11,14 +12,15 @@ export class ExportableBreakpoint {
   constructor(
     location: string,
     line: Range,
-    enabled?: boolean,
+    enabled: boolean,
     condition?: string,
     hitCondition?: string,
     logMessage?: string
   ) {
+    super();
     this.location = location;
     this.line = line;
-    this.enabled = enabled;
+    this.enabled = enabled ?? false;
     this.condition = condition;
     this.hitCondition = hitCondition;
     this.logMessage = logMessage;

@@ -9,10 +9,7 @@ import {
 import { loadCollectionsFromContext } from "./helpers/persist-collection";
 import {
   CreateCollectionCommand,
-  DeleteAllCollectionsCommand,
-  DeleteCollectionCommand,
   DisplosableCommand,
-  ExportCollectionCommand,
   ImportCollectionCommand,
   setActiveCollectionCommand,
 } from "./commands";
@@ -20,7 +17,6 @@ import { RefreshTreeCommand } from "./commands/refresh-tree";
 import { SearchCollectionCommand } from "./commands/search-collection";
 import { GlobalState } from "./global-state";
 import { UpdateCollectionCommand } from "./commands/update-collection";
-import { ExportAllCollectionsCommand } from "./commands/export-all-collections";
 import { ExportSelectedCollectionsCommand } from "./commands/export-selected-collections";
 import { DeleteSelectedCollectionsCommand } from "./commands/delete-selected-collections";
 import { onSelectionChange } from "./helpers/on-selection-change";
@@ -52,13 +48,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const removeCollection = vscode.commands.registerCommand(
-    "breakpointsmanager.removeCollection",
-    (collectionItem: CollectionTreeItem) => {
-      DeleteCollectionCommand(collectionItem);
-    }
-  );
-
   const removeSelectedCollections = vscode.commands.registerCommand(
     CommandType.RemoveSelectedCollections,
     () => {
@@ -66,31 +55,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const removeAllCollections = vscode.commands.registerCommand(
-    "breakpointsmanager.removeAllCollections",
-    () => {
-      DeleteAllCollectionsCommand();
-    }
-  );
-
   const setActiveCollection = vscode.commands.registerCommand(
     "breakpointsmanager.setActiveCollection",
     (selectedCollection: CollectionTreeItem) => {
       setActiveCollectionCommand(selectedCollection);
-    }
-  );
-
-  const exportCollection = vscode.commands.registerCommand(
-    CommandType.ExportCollection,
-    (selectedCollection: CollectionTreeItem) => {
-      ExportCollectionCommand(selectedCollection);
-    }
-  );
-
-  const exportAllCollections = vscode.commands.registerCommand(
-    CommandType.ExportAllCollections,
-    () => {
-      ExportAllCollectionsCommand();
     }
   );
 
@@ -133,11 +101,7 @@ export function activate(context: vscode.ExtensionContext) {
     disposable,
     createCollection,
     setActiveCollection,
-    removeCollection,
     removeSelectedCollections,
-    removeAllCollections,
-    exportCollection,
-    exportAllCollections,
     exportSelectedCollections,
     importCollection,
     refreshTree,
@@ -157,8 +121,10 @@ function init(context: vscode.ExtensionContext): void {
   globalState.collectionProvider = collectionTreeProvider;
   globalState.treeView = treeView;
   globalState.context = context;
+  
   // Load collections from context if they exist
-  globalState.collections = loadCollectionsFromContext();
+  globalState.context.globalState.update(identifier, loadCollectionsFromContext());
+
   globalState.selectedCollections = [];
   globalState.workspace_uri_path_length =
     vscode.workspace.workspaceFolders![0].uri.path.length;

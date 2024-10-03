@@ -1,18 +1,16 @@
 import * as vscode from "vscode";
-import { BreakpointCollection } from "../create-collection";
+import { BreakpointCollection } from "../models/collection-types.model";
 import { identifier } from "../extension";
 import { GlobalState } from "../global-state";
-import { convertToSourceCollection } from "./convert-to-source-breakpoint";
-import { ExportedBreakpointCollection } from "../models/breakpoints.model";
 
 /**
  * The function persistCollectionsToContext asynchronously updates breakpoint collections in the global
  * state context.
- * @param {ExportedBreakpointCollection[]} collections - An array of ExportedBreakpointCollection
+ * @param {BreakpointCollection[]} collections - An array of BreakpointCollection
  * objects that need to be persisted to the context.
  */
 export async function persistCollectionsToContext(
-  collections: ExportedBreakpointCollection[]
+  collections: BreakpointCollection[]
 ) {
   const globalState = GlobalState.getInstance();
   const savedCollections = (await globalState!.context?.globalState.get(
@@ -46,17 +44,18 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
 
   if (savedCollections?.length > 0) {
     try {
-      const restoredCollections = convertToSourceCollection(
-        savedCollections,
-        workspace_uri_path!
-      );
+      // TODO: might not needed
+      // const restoredCollections = convertToSourceCollections(
+      //   savedCollections,
+      //   workspace_uri_path!
+      // );
 
       savedCollections.map((savedCollection) => {
         globalState.collectionProvider?.addCollection(savedCollection.name);
         globalState.collectionProvider?.refresh();
       });
 
-      return restoredCollections || [];
+      return savedCollections || [];
     } catch (error) {
       console.error(error);
       vscode.window.showInformationMessage(

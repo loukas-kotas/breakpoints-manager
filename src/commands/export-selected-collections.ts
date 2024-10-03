@@ -1,17 +1,29 @@
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
 import { exportCollection } from "../helpers/export-collection";
+import * as vscode from 'vscode';
 
 export async function ExportSelectedCollectionsCommand() {
   const globalState = GlobalState.getInstance();
   const selectedCollections = globalState.selectedCollections;
-  if (selectedCollections) {
-    if (globalState.workspace_uri_path_length) {
-      exportCollection(
-        { label: `bm-exports-${new Date().getTime()}` },
-        selectedCollections
+  const fileTitle = `bm-exports-${new Date().getTime()}`;
+
+  try {
+    if (selectedCollections) {
+      if (globalState.workspace_uri_path_length) {
+        exportCollection(
+          { label: fileTitle },
+          selectedCollections
+        );
+      }
+      globalState.lastActionApplied = CommandType.ExportSelectedCollections;
+      vscode.window.showInformationMessage(
+        `Collection '${fileTitle}' exported successfully.`
       );
     }
-    globalState.lastActionApplied = CommandType.ExportSelectedCollections;
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      `ERROR: Could not export collections`
+    );
   }
 }

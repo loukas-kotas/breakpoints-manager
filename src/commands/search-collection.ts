@@ -1,16 +1,18 @@
 import * as vscode from "vscode";
 import { setActiveCollectionHelper } from "./set-active-collection";
-import { BreakpointCollection } from "../create-collection";
+import { ExportableCollection } from "../models/collection-types.model";
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
+import { identifier } from "../extension";
 
 export function SearchCollectionCommand() {
   const globalState = GlobalState.getInstance();
 
   if (globalState.collectionProvider) {
     const quickPick = vscode.window.createQuickPick();
-    quickPick.items = globalState.collections.map(
-      (item: BreakpointCollection) => {
+    const contextCollections: ExportableCollection[] = globalState.context?.globalState.get(identifier) ?? [];
+    quickPick.items = contextCollections.map(
+      (item: ExportableCollection) => {
         return {
           label: item.name,
           description: item.name,

@@ -3,15 +3,14 @@ import {
   CollectionTreeProvider,
 } from "./collection-tree-provider.model";
 import { CommandType } from "./command-type.model";
-import { BreakpointCollection } from "./create-collection";
+import { BreakpointCollection, ExportableCollection } from "./models/collection-types.model";
 import { ActiveCollection } from "./models/active-collection.model";
 import * as vscode from "vscode";
 
 // Singleton Global State
 export class GlobalState {
   private static instance: GlobalState;
-
-  public collections: BreakpointCollection[] = [];
+  
   public activeCollection: ActiveCollection | null = null;
   public collectionProvider: CollectionTreeProvider | undefined;
   public context: vscode.ExtensionContext | undefined;
@@ -19,7 +18,7 @@ export class GlobalState {
   public workspace_uri_path_length: number | undefined;
   public workspace_uri_path: string | undefined;
   public treeView: vscode.TreeView<CollectionTreeItem> | undefined;
-  public selectedCollections: BreakpointCollection[] = [];
+  public selectedCollections: ExportableCollection[] = [];
 
   // Private constructor to prevent instantiation from outside
   private constructor() {}

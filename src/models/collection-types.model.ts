@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import { ExportableBreakpoint } from "./models/exportable-breakpoint";
+import { ExportableBreakpoint } from "./exportable-breakpoint";
 
 export interface BreakpointCollection {
   name: string;
   breakpoints: vscode.Breakpoint[]; // Store breakpoints
 }
 
-export interface ExportedBreakpointCollection {
+export interface ExportableCollection {
   name: string;
   breakpoints: ExportableBreakpoint[];
 }

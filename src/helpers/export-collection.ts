@@ -1,10 +1,8 @@
 import { TreeItemLabel } from "../collection-tree-provider.model";
-import { BreakpointCollection } from "../create-collection";
+import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
 import * as vscode from "vscode";
 import * as circularJson from "circular-json";
-import { toExportableBreakpointCollection } from "./to-breakpoint-internal";
 import * as fs from "fs";
-import { ExportedBreakpointCollection } from "../models/breakpoints.model";
 
 /**
  * The function `exportCollection` exports a selected breakpoint collection to a JSON file after
@@ -17,28 +15,19 @@ import { ExportedBreakpointCollection } from "../models/breakpoints.model";
  */
 export async function exportCollection(
   collectionName: TreeItemLabel,
-  collections: BreakpointCollection[]
+  collections: ExportableCollection[]
 ) {
   const jsonFileUri = await openSaveDialog(collectionName);
-  let workspace_uri_path_length =
-    vscode.workspace.workspaceFolders![0].uri.path.length;
   if (collections) {
-    const exportedCollections: ExportedBreakpointCollection[] = [];
+    const exportedCollections: ExportableCollection[] = [];
     collections.forEach((collection) => {
-      const exportedCollection = toExportableBreakpointCollection(
-        collection,
-        workspace_uri_path_length
-      );
-      exportedCollections.push(exportedCollection);
+      exportedCollections.push(collection);
     });
 
     const jsonContent = circularJson.stringify(exportedCollections);
 
     if (jsonFileUri) {
       fs.writeFileSync(jsonFileUri.fsPath, jsonContent, "utf8");
-      vscode.window.showInformationMessage(
-        `Collection '${collectionName}' exported successfully.`
-      );
     }
   }
 }

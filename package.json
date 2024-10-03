@@ -50,11 +50,6 @@
           "group": "navigation"
         },
         {
-          "command": "breakpointsmanager.exportAllCollections",
-          "when": "view == breakpointsCollection",
-          "group": "navigation"
-        },
-        {
           "command": "breakpointsmanager.exportSelectedCollections",
           "when": "view === breakpointsCollection",
           "group": "navigation"
@@ -80,16 +75,6 @@
           "command": "breakpointsmanager.setActiveCollection",
           "when": "view == breakpointsCollection",
           "group": "inline"
-        },
-        {
-          "command": "breakpointsmanager.removeCollection",
-          "when": "view == breakpointsCollection",
-          "group": "inline"
-        },
-        {
-          "command": "breakpointsmanager.exportCollection",
-          "when": "view == breakpointsCollection",
-          "group": "inline"
         }
       ]
     },
@@ -102,16 +87,6 @@
         "command": "breakpointsmanager.createCollection",
         "title": "Create Collection (Breakpoints Manager)",
         "icon": "$(plus)"
-      },
-      {
-        "command": "breakpointsmanager.removeCollection",
-        "title": "Remove Collection (Breakpoints Manager)",
-        "icon": "$(close)"
-      },
-      {
-        "command": "breakpointsmanager.removeAllCollections",
-        "title": "Remove All Collections (Breakpoints Manager)",
-        "icon": "$(close-all)"
       },
       {
         "command": "breakpointsmanager.removeSelectedCollections",
@@ -127,16 +102,6 @@
         "command": "breakpointsmanager.updateCollection",
         "title": "Update Collection (Breakpoints Manager)",
         "icon": "$(save)"
-      },
-      {
-        "command": "breakpointsmanager.exportCollection",
-        "title": "Export Collection as JSON (Breakpoints Manager)",
-        "icon": "$(save)"
-      },
-      {
-        "command": "breakpointsmanager.exportAllCollections",
-        "title": "Export All Collections as JSON (Breakpoints Manager)",
-        "icon": "$(save-all)"
       },
       {
         "command": "breakpointsmanager.exportSelectedCollections",
