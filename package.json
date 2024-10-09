@@ -68,12 +68,12 @@
       "view/item/context": [
         {
           "command": "breakpointsmanager.updateCollection",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsCollection && viewItem == 'collectionWithIcons'",
           "group": "inline"
         },
         {
           "command": "breakpointsmanager.setActiveCollection",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsCollection && viewItem == 'collectionWithIcons'",
           "group": "inline"
         }
       ]

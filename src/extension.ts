@@ -19,6 +19,8 @@ import {
 } from "./commands";
 import { GlobalState } from "./global-state";
 import { onSelectionChange } from "./helpers/on-selection-change";
+import { Labels } from "./models/labels.model";
+import { ExportableCollection } from "./models/collection-types.model";
 
 export const identifier = "breakpointCollections";
 
@@ -81,6 +83,9 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  /**
+   * @deprecated
+   */
   const updateCollection = vscode.commands.registerCommand(
     CommandType.UpdateCollection,
     () => {
@@ -129,4 +134,27 @@ function init(context: vscode.ExtensionContext): void {
 
   // Listen for changes when a selection changes
   onSelectionChange();
+
+  globalState.treeView.onDidChangeCheckboxState((event) => {
+    event.items.forEach(item => {
+      if (item[0].label.label === Labels.SelectAll) {
+        // return select all checkbox to previous state. Before change.
+        item[0].checkboxState = item[0].checkboxState ? vscode.TreeItemCheckboxState.Unchecked : vscode.TreeItemCheckboxState.Checked;
+        globalState.collectionProvider?.toggleSelectAll();
+        const selectAllState: vscode.TreeItemCheckboxState | undefined = globalState.collectionProvider?.getSelectAllState();
+
+        switch (selectAllState) {
+          case vscode.TreeItemCheckboxState.Checked:
+            const collections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+            globalState.selectedCollections = collections;
+            break;
+          case vscode.TreeItemCheckboxState.Unchecked:
+            globalState.selectedCollections = [];
+            break;
+          default: 
+            // do nothing
+        }
+      }
+    });
+  });
 }

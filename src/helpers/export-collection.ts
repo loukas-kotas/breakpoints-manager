@@ -14,7 +14,7 @@ import * as fs from "fs";
  * `ExportableCollection` object represents a collection of data that you want to save in the JSON
  * file.
  */
-export async function exportCollection(
+export async function exportCollections(
   collectionName: TreeItemLabel,
   collections: ExportableCollection[]
 ) {

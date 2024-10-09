@@ -1,6 +1,6 @@
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
-import { exportCollection } from "../helpers/export-collection";
+import { exportCollections } from "../helpers/export-collection";
 import * as vscode from 'vscode';
 
 export async function ExportSelectedCollectionsCommand() {
@@ -11,7 +11,7 @@ export async function ExportSelectedCollectionsCommand() {
   try {
     if (selectedCollections) {
       if (globalState.workspace_uri_path_length) {
-        exportCollection(
+        exportCollections(
           { label: fileTitle },
           selectedCollections
         );
