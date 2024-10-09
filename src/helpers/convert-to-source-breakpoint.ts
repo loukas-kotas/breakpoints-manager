@@ -23,13 +23,10 @@ export function convertToSourceBreakpoint(
   try {
     return new vscode.SourceBreakpoint(
       new vscode.Location(
-        // vscode.Uri.file(`${workspace_path}${point.location}`),
         vscode.Uri.file(`${workspace_path}${point.location}`),
         new vscode.Range(
           new vscode.Position(point.line[0].line, point.line[0].character),
           new vscode.Position(point.line[1].line, point.line[1].character)
-          // new vscode.Position(point.location.range[0].line, point.location.range[0].character),
-          // new vscode.Position(point.location.range[1].line, point.location.range[1].character)
         )
       ),
       point.enabled,

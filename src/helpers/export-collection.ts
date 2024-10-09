@@ -1,5 +1,5 @@
 import { TreeItemLabel } from "../collection-tree-provider.model";
-import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
+import { ExportableCollection } from "../models/collection-types.model";
 import * as vscode from "vscode";
 import * as circularJson from "circular-json";
 import * as fs from "fs";
