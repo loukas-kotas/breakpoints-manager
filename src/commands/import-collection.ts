@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import * as circularJson from "circular-json";
 import { promoteCollectionsFromImport } from "../helpers/save-collection-from-import";
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
@@ -22,7 +21,7 @@ async function importCollections(globalState: GlobalState) {
 
   if (jsonFileUri && jsonFileUri.length > 0) {
     const jsonContent = fs.readFileSync(jsonFileUri[0].fsPath, "utf8");
-    const importedCollections = circularJson.parse(
+    const importedCollections = JSON.parse(
       jsonContent
     ) as ExportableCollection[];
 

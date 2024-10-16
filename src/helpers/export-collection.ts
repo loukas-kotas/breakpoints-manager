@@ -1,7 +1,6 @@
 import { TreeItemLabel } from "../collection-tree-provider.model";
 import { ExportableCollection } from "../models/collection-types.model";
 import * as vscode from "vscode";
-import * as circularJson from "circular-json";
 import * as fs from "fs";
 
 /**
@@ -25,7 +24,7 @@ export async function exportCollections(
       exportedCollections.push(collection);
     });
 
-    const jsonContent = circularJson.stringify(exportedCollections);
+    const jsonContent = JSON.stringify(exportedCollections);
 
     if (jsonFileUri) {
       fs.writeFileSync(jsonFileUri.fsPath, jsonContent, "utf8");
