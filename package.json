@@ -26,7 +26,7 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
-  "icon": "media/rook.svg",
+  "icon": "media/breakpoints-manager-128.png",
   "contributes": {
     "viewsContainers": {},
     "views": {
