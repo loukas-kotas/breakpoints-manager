@@ -8,6 +8,7 @@ import { GlobalState } from "../global-state";
 import { identifier } from "../extension";
 import { BreakpointCollection } from "../models/collection-types.model";
 import { convertToSourceCollection } from "../helpers/convert-to-source-breakpoint";
+import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 
 export async function SetActiveCollectionCommand(
   selectedCollection: CollectionTreeItem
@@ -57,9 +58,7 @@ function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection |
     globalState.activeCollection = convertToSourceCollection(requestedCollection, workspace_path);
     vscode.debug.removeBreakpoints(vscode.debug.breakpoints); // remove current breakpoints
     vscode.debug.addBreakpoints(globalState.activeCollection!.breakpoints); // load selected collection's breakpoints
-    vscode.window.showInformationMessage(
-      `Active Collection Set: ${selectedCollectionName.label}`
-    );
+    showMessageWithTimeout(`Active Collection Set: ${selectedCollectionName.label}`);
   } else {
     vscode.window.showWarningMessage(
       `Collection "${selectedCollectionName.label}" not found.`
@@ -87,6 +86,6 @@ function updateIconForActiveCollection(globalState: GlobalState, selectedTreeIte
       globalState.collectionProvider?.refresh();
     }
   } catch (e) {
-    vscode.window.showErrorMessage('Error: on selecting the tree item');
+    showMessage('Error: on selecting the tree item', 'error');
   }
 }

@@ -1,4 +1,5 @@
 import { GlobalState } from "../global-state";
+import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 import { removeCollection } from "../helpers/remove-collection";
 import * as vscode from "vscode";
 
@@ -12,9 +13,9 @@ export function DeleteSelectedCollectionsCommand() {
       );
     });
     // Display informational message 
-    vscode.window.showInformationMessage("Selected Collections Removed");
+    showMessageWithTimeout("Selected Collections Removed");
   } catch (error) {
     // Display error message 
-    vscode.window.showErrorMessage("ERROR: Could not remove selected collections please try again");
+    showMessage("ERROR: Could not remove selected collections please try again", 'error');
   }
 }

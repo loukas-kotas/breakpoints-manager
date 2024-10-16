@@ -4,6 +4,7 @@ import { BreakpointCollection, ExportableCollection } from "../models/collection
 import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { CommandType } from "../command-type.model";
+import { showMessageWithTimeout } from "./messages";
 
 /**
  * The function `createCollection` creates a new breakpoint collection based on the current breakpoints
@@ -41,8 +42,6 @@ export function createCollection(requestedCollectionName: string | undefined) {
     globalState.lastActionApplied = CommandType.CreateCollection;
 
     // Show informational message
-    vscode.window.showInformationMessage(
-      `Breakpoint Collection "${requestedCollectionName}" created.`
-    );
+    showMessageWithTimeout(`Breakpoint Collection "${requestedCollectionName}" created.`);
   }
 }

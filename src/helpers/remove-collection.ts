@@ -1,9 +1,9 @@
 import { CollectionTreeItem } from "../collection-tree-provider.model";
 import { GlobalState } from "../global-state";
 import { updateCollectionsInContext } from "./persist-collection";
-import * as vscode from "vscode";
 import { identifier } from '../extension';
 import { ExportableCollection } from '../models/collection-types.model';
+import { showMessage } from "./messages";
 
 /**
  * This TypeScript function removes a collection item from a collection tree and updates the context
@@ -44,7 +44,7 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
           );        
       }
     } catch (e) {
-      vscode.window.showErrorMessage(`Error: ${e}`);
+      showMessage(`Error: ${e}`, 'error');
     }
   }
 }

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { BreakpointCollection } from "../models/collection-types.model";
 import { identifier } from "../extension";
 import { GlobalState } from "../global-state";
+import { showMessage } from "./messages";
 
 /**
  * The function persistCollectionsToContext asynchronously updates a global state with new breakpoint
@@ -47,9 +48,7 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
       return savedCollections || [];
     } catch (error) {
       console.error(error);
-      vscode.window.showInformationMessage(
-        "Failed to transform context collections"
-      );
+      showMessage("Failed to transform context collections", 'error');
     }
   }
 

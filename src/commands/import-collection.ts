@@ -5,6 +5,7 @@ import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { ExportableCollection } from "../models/collection-types.model";
+import { showMessageWithTimeout } from "../helpers/messages";
 
 export async function ImportCollectionCommand() {
   const globalState = GlobalState.getInstance();
@@ -33,8 +34,6 @@ async function importCollections(globalState: GlobalState) {
 
     promoteCollectionsFromImport(importedCollections);
     persistCollectionsToContext(importedCollections);
-    vscode.window.showInformationMessage(
-      `Collection '${filename}' imported successfully.`
-    );
+    showMessageWithTimeout(`Collection '${filename}' imported successfully.`);
   }
 }

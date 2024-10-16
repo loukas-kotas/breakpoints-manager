@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import {
   BreakpointCollection,
 } from "../models/collection-types.model";
+import { showMessage } from "./messages";
 
 /**
  * The function `convertToSourceBreakpoint` takes a point and workspace path as input and returns a
@@ -35,7 +36,7 @@ export function convertToSourceBreakpoint(
       point.logMessage
     );
   } catch (e) {
-    vscode.window.showErrorMessage("convertToSourceBreakpoint failed");
+    showMessage("convertToSourceBreakpoint failed", 'error');
     console.error(e);
   }
 }

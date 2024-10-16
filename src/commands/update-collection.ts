@@ -3,6 +3,7 @@ import * as vscode from "vscode";
 import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { BreakpointCollection } from "../models/collection-types.model";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
+import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 
 export function UpdateCollectionCommand() {
   const globalState: GlobalState = GlobalState.getInstance();
@@ -18,10 +19,8 @@ export function UpdateCollectionCommand() {
       persistCollectionsToContext([exportableCollection]);
     }
 
-    vscode.window.showInformationMessage(
-      `Collection ${globalState.activeCollection?.name} updated!`
-    );
+    showMessageWithTimeout(`Collection ${globalState.activeCollection?.name} updated!`);
   } catch (e) {
-    vscode.window.showErrorMessage("Could not Update Collection");
+    showMessage("Could not Update Collection", 'error');
   }
 }
