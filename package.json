@@ -1,34 +1,40 @@
 {
-  "name": "breakpointsmanager",
-  "displayName": "BreakpointsManager",
-  "description": "",
+  "name": "breakpoints-manager",
+  "displayName": "Breakpoints Manager",
+  "description": "Manage breakpoint collections: create, update, export, and import for efficient debugging.",
   "version": "0.0.1",
+  "publisher": "Loukas Kotas",
   "engines": {
     "vscode": "^1.93.0"
   },
-  "categories": [
-    "Other"
+  "repository": {
+    "url": "https://github.com/loukas-kotas/breakpoints-manager"
+  },
+  "keywords": [
+    "vscode",
+    "debugging",
+    "breakpoints",
+    "management",
+    "json",
+    "import",
+    "export"
   ],
-  "activationEvents": [],
+  "categories": [
+    "Debuggers"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "icon": "media/rook.svg",
   "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "breakpointsmanager",
-          "title": "Breakpoints Manager",
-          "icon": "./media/notebook.svg"
-        }
-      ]
-    },
+    "viewsContainers": {},
     "views": {
       "debug": [
         {
           "id": "breakpointsCollection",
           "name": "Breakpoints Manager",
           "contextualTitle": "Breakpoints Manager"
-
         }
       ]
     },
@@ -129,6 +135,9 @@
     "lint": "eslint src",
     "test": "vscode-test"
   },
+  "dependencies": {
+    "circular-json": "^0.5.9"
+  },
   "devDependencies": {
     "@types/circular-json": "^0.4.0",
     "@types/mocha": "^10.0.7",
@@ -138,7 +147,6 @@
     "@typescript-eslint/parser": "^8.3.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
-    "circular-json": "^0.5.9",
     "eslint": "^9.9.1",
     "typescript": "^5.5.4"
   }
