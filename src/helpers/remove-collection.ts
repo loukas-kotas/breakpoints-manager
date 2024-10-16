@@ -4,6 +4,7 @@ import { updateCollectionsInContext } from "./persist-collection";
 import { identifier } from '../extension';
 import { ExportableCollection } from '../models/collection-types.model';
 import { showMessage } from "./messages";
+import { CommandType } from "../command-type.model";
 
 /**
  * This TypeScript function removes a collection item from a collection tree and updates the context
@@ -41,7 +42,9 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
         globalState.selectedCollections =
           globalState.selectedCollections.filter(
             (collection) => collection.name !== collectionItem.label.label
-          );        
+          );
+
+        globalState.lastActionApplied = CommandType.RemoveSelectedCollections;
       }
     } catch (e) {
       showMessage(`Error: ${e}`, 'error');

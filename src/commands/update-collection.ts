@@ -4,6 +4,7 @@ import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { BreakpointCollection } from "../models/collection-types.model";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
+import { CommandType } from "../command-type.model";
 
 export function UpdateCollectionCommand() {
   const globalState: GlobalState = GlobalState.getInstance();
@@ -19,6 +20,7 @@ export function UpdateCollectionCommand() {
       persistCollectionsToContext([exportableCollection]);
     }
 
+    globalState.lastActionApplied = CommandType.UpdateCollection;
     showMessageWithTimeout(`Collection ${globalState.activeCollection?.name} updated!`);
   } catch (e) {
     showMessage("Could not Update Collection", 'error');
