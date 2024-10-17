@@ -5,6 +5,7 @@ import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { CommandType } from "../command-type.model";
 import { showMessageWithTimeout } from "./messages";
+import { createBreakpointCollection } from "../commands/create-breakpoint-collection";
 
 /**
  * The function `createCollection` creates a new breakpoint collection based on the current breakpoints
@@ -20,12 +21,7 @@ export function createCollection(requestedCollectionName: string | undefined) {
 
   if (requestedCollectionName && globalState.collectionProvider) {
     // Create a new collection with the current breakpoints
-    const newCollection: BreakpointCollection = {
-      name: requestedCollectionName,
-      breakpoints: currentBreakpoints.filter(
-        (bp) => bp instanceof vscode.Breakpoint
-      ) as vscode.Breakpoint[],
-    };
+    const newCollection: BreakpointCollection = createBreakpointCollection(requestedCollectionName, currentBreakpoints);
 
     // Convert MapCollection to ExportableCollection
     const workspace_uri_path_length = vscode.workspace.workspaceFolders![0].uri.path.length;

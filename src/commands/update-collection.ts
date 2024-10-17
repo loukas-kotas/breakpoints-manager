@@ -1,27 +1,34 @@
 import { GlobalState } from "../global-state";
 import * as vscode from "vscode";
-import { toExportableCollection } from "../helpers/to-breakpoint-internal";
-import { BreakpointCollection } from "../models/collection-types.model";
-import { persistCollectionsToContext } from "../helpers/persist-collection";
+import { ExportableCollection } from "../models/collection-types.model";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 import { CommandType } from "../command-type.model";
+import { CollectionTreeItem } from "../collection-tree-provider.model";
+import { identifier } from "../extension";
+import {  toExportableBreakpoints } from "../helpers/create-exportable-breakpoint";
 
-export function UpdateCollectionCommand() {
+export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeItem) {
   const globalState: GlobalState = GlobalState.getInstance();
   try {
-    globalState.activeCollection!.breakpoints = [...vscode.debug.breakpoints];
-    let workspace_uri_path_length =
-      vscode.workspace.workspaceFolders![0].uri.path.length;
-    const exportableCollection = toExportableCollection(
-      globalState.activeCollection as BreakpointCollection,
-      workspace_uri_path_length
-    );
+    // Find the selected collection
+    const currentCollections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    const selectedCollection = currentCollections.find(collection => selectedCollectionItem.label.label === collection.name);
+
+    // Get current breakpoints
+    const currentBreakpoints = vscode.debug.breakpoints;
+
+    // Convert to Exportable Breakpoints
+    const workspace_uri_path_length = vscode.workspace.workspaceFolders![0].uri.path.length;
+    const exportableBreakpoints = toExportableBreakpoints([...currentBreakpoints], workspace_uri_path_length);
+
+    selectedCollection!.breakpoints = JSON.parse(JSON.stringify(exportableBreakpoints));
+
     if (globalState.context) {
-      persistCollectionsToContext([exportableCollection]);
+      globalState.collectionProvider?.refresh();
     }
 
     globalState.lastActionApplied = CommandType.UpdateCollection;
-    showMessageWithTimeout(`Collection ${globalState.activeCollection?.name} updated!`);
+    showMessageWithTimeout(`Collection ${selectedCollection?.name} updated!`);
   } catch (e) {
     showMessage("Could not Update Collection", 'error');
   }

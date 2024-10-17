@@ -83,13 +83,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  /**
-   * @deprecated
-   */
   const updateCollection = vscode.commands.registerCommand(
     CommandType.UpdateCollection,
-    () => {
-      UpdateCollectionCommand();
+    (selectedCollection: CollectionTreeItem) => {
+      UpdateCollectionCommand(selectedCollection);
     }
   );
 

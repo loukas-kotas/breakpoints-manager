@@ -1,3 +1,4 @@
+import { Breakpoint } from "vscode";
 import { ExportableBreakpoint } from "../models/exportable-breakpoint";
 
 /**
@@ -24,4 +25,11 @@ export function toExportableBreakpoint(
     point.hitCondition,
     point.logMessage
   );
+}
+
+
+export function toExportableBreakpoints(points: Breakpoint[], workspace_uri_path_length: number): ExportableBreakpoint[] {
+  const exportableBreakpoints: ExportableBreakpoint[] = [];
+  points.forEach(point => exportableBreakpoints.push(toExportableBreakpoint(point, workspace_uri_path_length)));
+  return exportableBreakpoints;
 }
