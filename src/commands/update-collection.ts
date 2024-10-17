@@ -24,6 +24,7 @@ export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeIt
     selectedCollection!.breakpoints = JSON.parse(JSON.stringify(exportableBreakpoints));
 
     if (globalState.context) {
+      globalState.context.globalState.update(identifier, currentCollections);
       globalState.collectionProvider?.refresh();
     }
 
