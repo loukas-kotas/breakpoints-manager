@@ -2,6 +2,7 @@ import { TreeItemLabel } from "../collection-tree-provider.model";
 import { ExportableCollection } from "../models/collection-types.model";
 import * as vscode from "vscode";
 import * as fs from "fs";
+import { showMessageWithTimeout } from "./messages";
 
 /**
  * The function `exportCollection` exports a collection of data to a JSON file after converting it to a
@@ -27,7 +28,13 @@ export async function exportCollections(
     const jsonContent = JSON.stringify(exportedCollections);
 
     if (jsonFileUri) {
-      fs.writeFileSync(jsonFileUri.fsPath, jsonContent, "utf8");
+      try {
+        fs.writeFileSync(jsonFileUri.fsPath, jsonContent, "utf8");
+        showMessageWithTimeout(`Collection '${collectionName.label}' exported successfully.`);
+      } catch (error) {
+        console.error(error);
+        console.error("There was error while exporting the selected collections");
+      }
     }
   }
 }

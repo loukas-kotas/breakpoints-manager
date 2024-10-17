@@ -1,8 +1,7 @@
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
 import { exportCollections } from "../helpers/export-collection";
-import * as vscode from 'vscode';
-import { showMessage, showMessageWithTimeout } from "../helpers/messages";
+import { showMessage } from "../helpers/messages";
 
 export async function ExportSelectedCollectionsCommand() {
   const globalState = GlobalState.getInstance();
@@ -18,7 +17,6 @@ export async function ExportSelectedCollectionsCommand() {
         );
       }
       globalState.lastActionApplied = CommandType.ExportSelectedCollections;
-      showMessageWithTimeout(`Collection '${fileTitle}' exported successfully.`);
     }
   } catch (error) {
     showMessage(`ERROR: Could not export collections`, 'error');
