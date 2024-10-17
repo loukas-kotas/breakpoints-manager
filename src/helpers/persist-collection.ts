@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { BreakpointCollection } from "../models/collection-types.model";
+import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
 import { identifier } from "../extension";
 import { GlobalState } from "../global-state";
 import { showMessage } from "./messages";
@@ -7,17 +7,17 @@ import { showMessage } from "./messages";
 /**
  * The function persistCollectionsToContext asynchronously updates a global state with new breakpoint
  * collections.
- * @param {BreakpointCollection[]} collections - The `collections` parameter in the
- * `persistCollectionsToContext` function is an array of `BreakpointCollection` objects.
+ * @param {ExportableCollection[]} collections - The `collections` parameter in the
+ * `persistCollectionsToContext` function is an array of `ExportableCollection` objects.
  */
-export async function persistCollectionsToContext(
-  collections: BreakpointCollection[]
+export function persistCollectionsToContext(
+  collections: ExportableCollection[]
 ) {
   const globalState = GlobalState.getInstance();
-  const savedCollections = (await globalState!.context?.globalState.get(
+  const savedCollections = (globalState!.context?.globalState.get(
     identifier
-  )) as BreakpointCollection[];
-  await globalState!.context?.globalState.update(identifier, [
+  )) as ExportableCollection[];
+  globalState!.context?.globalState.update(identifier, [
     ...savedCollections,
     ...collections,
   ]);
