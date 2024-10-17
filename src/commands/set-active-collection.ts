@@ -6,8 +6,8 @@ import * as vscode from "vscode";
 import { CommandType } from "../command-type.model";
 import { GlobalState } from "../global-state";
 import { identifier } from "../extension";
-import { BreakpointCollection } from "../models/collection-types.model";
-import { convertToSourceCollection } from "../helpers/convert-to-source-breakpoint";
+import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
+import { convertToSourceBreakpoints } from "../helpers/convert-to-source-breakpoint";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 
 export async function SetActiveCollectionCommand(
@@ -55,9 +55,12 @@ export const setActiveCollectionHelper = async (
 function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection | undefined, globalState: GlobalState, selectedCollectionName: vscode.TreeItemLabel) {
   if (requestedCollection) {
     const workspace_path = vscode.workspace.workspaceFolders![0].uri.path;
-    globalState.activeCollection = convertToSourceCollection(requestedCollection, workspace_path);
+    // Find selected collection
+    const currentCollections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    const selectedCollection = currentCollections.find(collection => requestedCollection.name === collection.name);
+
     vscode.debug.removeBreakpoints(vscode.debug.breakpoints); // remove current breakpoints
-    vscode.debug.addBreakpoints(globalState.activeCollection!.breakpoints); // load selected collection's breakpoints
+    vscode.debug.addBreakpoints(convertToSourceBreakpoints(selectedCollection!.breakpoints, workspace_path)); // load selected collection's breakpoints
     showMessageWithTimeout(`Active Collection Set: ${selectedCollectionName.label}`);
   } else {
     vscode.window.showWarningMessage(

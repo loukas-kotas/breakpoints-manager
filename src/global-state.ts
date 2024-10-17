@@ -3,15 +3,14 @@ import {
   CollectionTreeProvider,
 } from "./collection-tree-provider.model";
 import { CommandType } from "./command-type.model";
-import { BreakpointCollection, ExportableCollection } from "./models/collection-types.model";
-import { ActiveCollection } from "./models/active-collection.model";
+import { ExportableCollection } from "./models/collection-types.model";
 import * as vscode from "vscode";
 
 // Singleton Global State
 export class GlobalState {
   private static instance: GlobalState;
   
-  public activeCollection: ActiveCollection | null = null;
+  // public activeCollection: ActiveCollection | null = null;
   public collectionProvider: CollectionTreeProvider | undefined;
   public context: vscode.ExtensionContext | undefined;
   public lastActionApplied: CommandType | undefined = undefined;
