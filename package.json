@@ -4,6 +4,7 @@
   "description": "Manage breakpoint collections: create, update, export, and import for efficient debugging.",
   "version": "0.0.1",
   "publisher": "Loukas Kotas",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.93.0"
   },
