@@ -58,7 +58,7 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
   removeCollection(collectionName: TreeItemLabel) {
     // Filter out the collection to be removed
     this.collections = this.collections.filter(
-      (col) => col.label !== collectionName
+      (col) => col.label.label !== collectionName.label
     );
 
     // Unselect 'Select All / Unselect All' checkbox if no checkboxes exist

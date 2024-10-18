@@ -64,10 +64,10 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
  * @param {BreakpointCollection[]} collections - The `collections` parameter is an array of
  * `BreakpointCollection` objects.
  */
-export async function updateCollectionsInContext(
+export function updateCollectionsInContext(
   context: vscode.ExtensionContext,
   collections: BreakpointCollection[]
 ) {
-  await context.globalState.update(identifier, []);
-  await context.globalState.update(identifier, collections);
+  context.globalState.update(identifier, []);
+  context.globalState.update(identifier, collections);
 }

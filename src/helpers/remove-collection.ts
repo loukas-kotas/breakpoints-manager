@@ -1,4 +1,3 @@
-import { CollectionTreeItem } from "../collection-tree-provider.model";
 import { GlobalState } from "../global-state";
 import { updateCollectionsInContext } from "./persist-collection";
 import { identifier } from '../extension';
@@ -7,14 +6,13 @@ import { showMessage } from "./messages";
 import { CommandType } from "../command-type.model";
 
 /**
- * This TypeScript function removes a collection item from a collection tree and updates the context
- * and selected collections accordingly.
- * @param {CollectionTreeItem} collectionItem - The `collectionItem` parameter in the
- * `removeCollection` function is of type `CollectionTreeItem`. It seems to represent an item in a
- * collection tree, possibly used in a user interface to display collections. The function removes this
- * collection item from various places such as the context collections, the collection tree
+ * The function `removeCollection` removes a specified collection from a global state and updates the
+ * context and collection tree provider accordingly.
+ * @param {ExportableCollection} collectionToDelete - The `collectionToDelete` parameter is an
+ * `ExportableCollection` object that represents the collection that needs to be removed from the
+ * context and the collection tree provider.
  */
-export function removeCollection(collectionItem: CollectionTreeItem) {
+export function removeCollection(collectionToDelete: ExportableCollection) {
   const globalState = GlobalState.getInstance();
 
   if (globalState.collectionProvider) {
@@ -23,7 +21,7 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
     
     // remove collection from context collections
     const remainingCollections = contextCollections.filter(
-      (col) => col.name !== collectionItem.label.label
+      (col) => col.name !== collectionToDelete.name
     );
 
     try {
@@ -36,13 +34,8 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
         );
         
         // update collection tree provider
-        globalState.collectionProvider.removeCollection(collectionItem.label); // remove collection from the collection tree
-        
-        // remove collection from selectedCollections if exists in there
-        globalState.selectedCollections =
-          globalState.selectedCollections.filter(
-            (collection) => collection.name !== collectionItem.label.label
-          );
+        globalState.collectionProvider.removeCollection({label: collectionToDelete.name}); // remove collection from the collection tree\
+        globalState.collectionProvider.refresh();
 
         globalState.lastActionApplied = CommandType.RemoveSelectedCollections;
       }
@@ -53,10 +46,11 @@ export function removeCollection(collectionItem: CollectionTreeItem) {
 }
 
 /**
- * The function `removeCollections` iterates through an array of `CollectionTreeItem` objects and calls
- * `removeCollection` on each item.
- * @param {CollectionTreeItem[]} collectionItems - An array of CollectionTreeItem objects.
+ * The function `removeCollections` takes an array of `ExportableCollection` objects and removes each
+ * collection using the `removeCollection` function.
+ * @param {ExportableCollection[]} collectionsToDelete - An array of ExportableCollection objects that
+ * need to be deleted.
  */
-export function removeCollections(collectionItems: CollectionTreeItem[]) {
-  collectionItems.forEach((collectionItem) => removeCollection(collectionItem));
+export function removeCollections(collectionsToDelete: ExportableCollection[]) {
+  collectionsToDelete.forEach((collectionToDelete) => removeCollection(collectionToDelete));
 }
