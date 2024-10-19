@@ -24,7 +24,10 @@
     "export"
   ],
   "categories": [
-    "Debuggers"
+    "Debuggers",
+    "Programming Languages",
+    "Testing",
+    "Other"
   ],
   "activationEvents": [
     "onStartupFinished"
