@@ -11,6 +11,9 @@
   "repository": {
     "url": "https://github.com/loukas-kotas/breakpoints-manager"
   },
+  "bugs": {
+    "url": "https://github.com/loukas-kotas/breakpoints-manager/issues"
+  },
   "keywords": [
     "vscode",
     "debugging",
