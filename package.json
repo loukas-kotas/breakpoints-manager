@@ -3,7 +3,7 @@
   "displayName": "Breakpoints Manager",
   "description": "Manage breakpoint collections: create, update, export, and import for efficient debugging.",
   "version": "0.0.1-test",
-  "publisher": "Loukas Kotas",
+  "publisher": "loukas-kotas",
   "author": {"name": "Loukas Kotas", "url": "https://loukaskotas.com"},
   "homepage": "https://github.com/loukas-kotas/breakpoints-manager",
   "pricing": "Free",
