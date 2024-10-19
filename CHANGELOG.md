@@ -1,9 +1,22 @@
-# Change Log
+# Changelog
 
-All notable changes to the "breakpointsmanager" extension will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.0] - 2024-10-XX
 
-## [Unreleased]
+### Added
+- Initial release of the Breakpoints Manager extension.
+- Features for creating, updating, and managing breakpoint collections.
+- Functionality to export and import breakpoint collections as JSON files.
+- Basic UI integration with Visual Studio Code's debugging environment.
+- Commands for selecting and searching collections.
 
-- Initial release
+### Changed
+- No changes were made in this initial release.
+
+### Fixed
+- No bugs fixed in this initial release.
+
+### Known Issues
+- Performance may degrade with a high number of collections imported at once.
+- Breakpoints outside the current workspace may not be fully supported.
