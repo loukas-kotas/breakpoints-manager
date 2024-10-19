@@ -1,6 +1,16 @@
 # Breakpoints Manager
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Version](https://img.shields.io/github/v/release/loukas-kotas/breakpoints-manager)](https://github.com/loukas-kotas/breakpoints-manager/releases)
+[![Repository](https://img.shields.io/badge/Repository-GitHub-blue)](https://github.com/loukas-kotas/breakpoints-manager)
+
+<!-- Add later -->
+<!-- [![Contribute](https://img.shields.io/badge/Contribute-Contributor-yellowgreen)](https://github.com/loukas-kotas/breakpoints-manager/blob/main/CONTRIBUTING.md) -->
+<!-- [![VSCode Marketplace](https://vsmarketplacebadge.apphb.com/version/loukas-kotas.breakpoints-manager.svg)](https://marketplace.visualstudio.com/items?itemName=loukas-kotas.breakpoints-manager) -->
+
 The **Breakpoints Manager** extension for Visual Studio Code allows you to efficiently manage breakpoints by creating collections, activating and updating them, exporting/importing breakpoints as JSON files, and more. This tool simplifies debugging by offering streamlined breakpoint organization and management across your workspace.
+
+> After you install the extension visit the `debug section`, at the bottom you will notice a tab `Breakpoints Manager`. This is where you will handle your breakpoint collections.
 
 ## Features
 
@@ -46,35 +56,9 @@ Here are demonstrations of how each feature works:
 
 ## Known Issues
 
-- If too many collections are imported at once, the UI may experience slowdowns.
+- Importing too many collections at once may slow down the UI.
 - Breakpoints outside the current workspace may not be fully supported.
 
-## Release Notes
-
-### 1.0.0
-
-- Initial release of Breakpoints Manager.
-- Basic functionality for creating, updating, and managing collections.
-
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extension guidelines and follow best practices for creating your extension.
-
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-- Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-- Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
