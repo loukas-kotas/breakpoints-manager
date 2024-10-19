@@ -13,7 +13,7 @@ A clear and concise description of the feature you want to propose.
 - Explain how this feature would benefit users.
 - Provide specific scenarios where the feature would be useful.
 
-### Proposed Solution
+### Proposed Solution (optional)
 If you have a specific idea in mind, describe how you envision this feature working. 
 
 ### Additional Context
