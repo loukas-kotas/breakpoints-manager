@@ -1,7 +1,7 @@
 # Breakpoints Manager
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![](https://vsmarketplacebadges.dev/version-short/loukas-kotas.breakpoints-manager.svg)](https://marketplace.visualstudio.com/items?itemName=loukas-kotas.breakpoints-manager)
+[![Version](https://vsmarketplacebadges.dev/version-short/loukas-kotas.breakpoints-manager.gif)](https://marketplace.visualstudio.com/items?itemName=loukas-kotas.breakpoints-manager)
 [![Repository](https://img.shields.io/badge/Repository-GitHub-blue)](https://github.com/loukas-kotas/breakpoints-manager)
 
 <!-- Add later -->
