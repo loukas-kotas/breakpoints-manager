@@ -42,7 +42,7 @@
     "views": {
       "debug": [
         {
-          "id": "breakpointsCollection",
+          "id": "breakpointsManager",
           "name": "Breakpoints Manager",
           "contextualTitle": "Breakpoints Manager"
         }
@@ -52,44 +52,44 @@
       "view/title": [
         {
           "command": "breakpointsmanager.createCollection",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsManager",
           "group": "navigation@1"
         },
         {
           "command": "breakpointsmanager.searchCollection",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsManager",
           "group": "navigation@2"
         },
         {
           "command": "breakpointsmanager.refreshTree",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsManager",
           "group": "navigation@3"
         },
         {
           "command": "breakpointsmanager.exportSelectedCollections",
-          "when": "view === breakpointsCollection",
+          "when": "view === breakpointsManager",
           "group": "navigation@4"
         },
         {
           "command": "breakpointsmanager.importCollection",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsManager",
           "group": "navigation@5"
         },
         {
           "command": "breakpointsmanager.removeSelectedCollections",
-          "when": "view == breakpointsCollection",
+          "when": "view == breakpointsManager",
           "group": "navigation@6"
         }
       ],
       "view/item/context": [
         {
           "command": "breakpointsmanager.updateCollection",
-          "when": "view == breakpointsCollection && viewItem == 'collectionWithIcons'",
+          "when": "view == breakpointsManager && viewItem == 'collectionWithIcons'",
           "group": "inline"
         },
         {
           "command": "breakpointsmanager.setActiveCollection",
-          "when": "view == breakpointsCollection && viewItem == 'collectionWithIcons'",
+          "when": "view == breakpointsManager && viewItem == 'collectionWithIcons'",
           "group": "inline"
         }
       ]

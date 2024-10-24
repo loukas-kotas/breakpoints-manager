@@ -108,7 +108,7 @@ export function deactivate() {}
 function init(context: vscode.ExtensionContext): void {
   // Initialize values
   const collectionTreeProvider = new CollectionTreeProvider();
-  const treeView = vscode.window.createTreeView("breakpointsCollection", {
+  const treeView = vscode.window.createTreeView("breakpointsManager", {
     treeDataProvider: collectionTreeProvider,
   });
   globalState.collectionProvider = collectionTreeProvider;
