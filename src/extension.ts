@@ -17,7 +17,7 @@ import {
   SetActiveCollectionCommand,
   UpdateCollectionCommand,
 } from "./commands";
-import { GlobalState } from "./global-state";
+import { WorkspaceState } from "./global-state";
 import { onSelectionChange } from "./helpers/on-selection-change";
 import { Labels } from "./models/labels.model";
 import { ExportableCollection } from "./models/collection-types.model";
@@ -27,7 +27,7 @@ export const identifier = "breakpointCollections";
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
-const globalState = GlobalState.getInstance();
+const globalState = WorkspaceState.getInstance();
 
 export function activate(context: vscode.ExtensionContext) {
   // let collections: BreakpointCollection[];

@@ -1,9 +1,9 @@
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 import { removeCollection, removeCollections } from "../helpers/remove-collection";
 
 export function DeleteSelectedCollectionsCommand() {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   const selectedCollections = globalState.selectedCollections;
   try {
     removeCollections(selectedCollections);

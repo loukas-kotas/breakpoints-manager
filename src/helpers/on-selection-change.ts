@@ -1,5 +1,5 @@
 import { identifier } from "../extension";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { ExportableCollection } from "../models/collection-types.model";
 import { Labels } from "../models/labels.model";
 
@@ -8,7 +8,7 @@ import { Labels } from "../models/labels.model";
  * collections to a global state.
  */
 export function onSelectionChange(): void {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   globalState?.treeView?.onDidChangeSelection((event) => {
     const selection = event.selection;
     selection.forEach((collectionTreeItem) => {

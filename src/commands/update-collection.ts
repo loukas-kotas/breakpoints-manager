@@ -1,4 +1,4 @@
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import * as vscode from "vscode";
 import { ExportableCollection } from "../models/collection-types.model";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
@@ -8,7 +8,7 @@ import { identifier } from "../extension";
 import {  toExportableBreakpoints } from "../helpers/create-exportable-breakpoint";
 
 export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeItem) {
-  const globalState: GlobalState = GlobalState.getInstance();
+  const globalState: WorkspaceState = WorkspaceState.getInstance();
   try {
     // Find the selected collection
     const currentCollections = globalState.context?.globalState.get(identifier) as ExportableCollection[];

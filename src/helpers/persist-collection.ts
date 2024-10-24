@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
 import { identifier } from "../extension";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { showMessage } from "./messages";
 
 /**
@@ -13,7 +13,7 @@ import { showMessage } from "./messages";
 export function persistCollectionsToContext(
   collections: ExportableCollection[]
 ) {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   const savedCollections = (globalState!.context?.globalState.get(
     identifier
   )) as ExportableCollection[];
@@ -33,7 +33,7 @@ export function persistCollectionsToContext(
  * of context collections failed. If there are no saved collections, an
  */
 export function loadCollectionsFromContext(): BreakpointCollection[] {
-  const globalState: GlobalState = GlobalState.getInstance();
+  const globalState: WorkspaceState = WorkspaceState.getInstance();
   const savedCollections =
     globalState.context?.globalState.get<BreakpointCollection[]>(identifier) ??
     [];

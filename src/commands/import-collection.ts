@@ -2,19 +2,19 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import { promoteCollectionsFromImport } from "../helpers/save-collection-from-import";
 import { CommandType } from "../command-type.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
 import { ExportableCollection } from "../models/collection-types.model";
 import { showMessageWithTimeout } from "../helpers/messages";
 
 export async function ImportCollectionCommand() {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   await importCollections(globalState);
 
   globalState.lastActionApplied = CommandType.ImportCollection;
 }
 
-async function importCollections(globalState: GlobalState) {
+async function importCollections(globalState: WorkspaceState) {
   const jsonFileUri = await vscode.window.showOpenDialog({
     filters: { "JSON Files": ["json"] },
     canSelectMany: false,

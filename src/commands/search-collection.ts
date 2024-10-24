@@ -2,11 +2,11 @@ import * as vscode from "vscode";
 import { setActiveCollectionHelper } from "./set-active-collection";
 import { ExportableCollection } from "../models/collection-types.model";
 import { CommandType } from "../command-type.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { identifier } from "../extension";
 
 export function SearchCollectionCommand() {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
 
   if (globalState.collectionProvider) {
     const quickPick = vscode.window.createQuickPick();

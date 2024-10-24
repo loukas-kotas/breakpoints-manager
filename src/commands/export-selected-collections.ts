@@ -1,10 +1,10 @@
 import { CommandType } from "../command-type.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { exportCollections } from "../helpers/export-collection";
 import { showMessage } from "../helpers/messages";
 
 export async function ExportSelectedCollectionsCommand() {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   const selectedCollections = globalState.selectedCollections;
   const fileTitle = `bm-exports-${new Date().getTime()}`;
 

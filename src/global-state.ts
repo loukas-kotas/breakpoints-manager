@@ -7,8 +7,8 @@ import { ExportableCollection } from "./models/collection-types.model";
 import * as vscode from "vscode";
 
 // Singleton Global State
-export class GlobalState {
-  private static instance: GlobalState;
+export class WorkspaceState {
+  private static instance: WorkspaceState;
   
   // public activeCollection: ActiveCollection | null = null;
   public collectionProvider: CollectionTreeProvider | undefined;
@@ -22,11 +22,11 @@ export class GlobalState {
   // Private constructor to prevent instantiation from outside
   private constructor() {}
 
-  // Static method to get the single instance of GlobalState
-  public static getInstance(): GlobalState {
-    if (!GlobalState.instance) {
-      GlobalState.instance = new GlobalState();
+  // Static method to get the single instance of WorkspaceState
+  public static getInstance(): WorkspaceState {
+    if (!WorkspaceState.instance) {
+      WorkspaceState.instance = new WorkspaceState();
     }
-    return GlobalState.instance;
+    return WorkspaceState.instance;
   }
 }

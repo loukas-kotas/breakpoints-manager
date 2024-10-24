@@ -4,7 +4,7 @@ import {
 } from "../collection-tree-provider.model";
 import * as vscode from "vscode";
 import { CommandType } from "../command-type.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { identifier } from "../extension";
 import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
 import { convertToSourceBreakpoints } from "../helpers/convert-to-source-breakpoint";
@@ -13,7 +13,7 @@ import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 export async function SetActiveCollectionCommand(
   selectedCollection: CollectionTreeItem
 ) {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   if (selectedCollection) {
     setActiveCollectionHelper(selectedCollection.label);
   }
@@ -24,7 +24,7 @@ export async function SetActiveCollectionCommand(
 export const setActiveCollectionHelper = async (
   selectedCollectionName: TreeItemLabel
 ) => {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   const collections = globalState.context?.globalState.get(identifier) as BreakpointCollection[];
   const requestedCollection: BreakpointCollection | undefined = collections.find((col) => col.name === selectedCollectionName.label);
 
@@ -43,7 +43,7 @@ export const setActiveCollectionHelper = async (
  * is of type `BreakpointCollection | undefined`, which means it can either be a `BreakpointCollection`
  * object or `undefined`. The function `setActiveCollectionTreeItem` uses this parameter to set the
  * active collection based on the user's selection.
- * @param {GlobalState} globalState - The `globalState` parameter in the `setActiveCollectionTreeItem`
+ * @param {WorkspaceState} globalState - The `globalState` parameter in the `setActiveCollectionTreeItem`
  * function is likely an object that stores global state information for your application or extension.
  * It may contain properties and values that need to be accessed or updated throughout the application.
  * This parameter is used to keep track of the active collection and
@@ -52,7 +52,7 @@ export const setActiveCollectionHelper = async (
  * the user. It is used to display messages to the user indicating the status of the operation, such as
  * showing an information message when the active collection is set or
  */
-function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection | undefined, globalState: GlobalState, selectedCollectionName: vscode.TreeItemLabel) {
+function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection | undefined, globalState: WorkspaceState, selectedCollectionName: vscode.TreeItemLabel) {
   if (requestedCollection) {
     const workspace_path = vscode.workspace.workspaceFolders![0].uri.path;
     // Find selected collection
@@ -72,13 +72,13 @@ function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection |
 /**
  * The function `updateIconForActiveCollection` updates the icon for the selected collection in a tree
  * view while removing icons from other collection tree items.
- * @param {GlobalState} globalState - The `globalState` parameter is an object that holds the state of
+ * @param {WorkspaceState} globalState - The `globalState` parameter is an object that holds the state of
  * the extension globally. It likely contains information about the current state of the extension,
  * such as which collection is active or selected.
  * @param {vscode.TreeItem | undefined} selectedTreeItem - The `selectedTreeItem` parameter is the tree
  * item that is currently selected in the collection tree view.
  */
-function updateIconForActiveCollection(globalState: GlobalState, selectedTreeItem: vscode.TreeItem | undefined) {
+function updateIconForActiveCollection(globalState: WorkspaceState, selectedTreeItem: vscode.TreeItem | undefined) {
   // remove icons from all the collection tree items in the collection provider 
   globalState.collectionProvider?.getChildren().forEach(collectionTreeItem => collectionTreeItem.iconPath = undefined);
 

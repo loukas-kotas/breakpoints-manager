@@ -1,8 +1,8 @@
 import { CommandType } from "../command-type.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 
 export function RefreshTreeCommand() {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
   if (globalState.collectionProvider && globalState.context) {
     globalState.collectionProvider.refresh();
     globalState.lastActionApplied = CommandType.RefreshTree;

@@ -1,7 +1,7 @@
 import {
   ExportableCollection,
 } from "../models/collection-types.model";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { convertToSourceBreakpoint } from "./convert-to-source-breakpoint";
 import * as vscode from "vscode";
 
@@ -16,7 +16,7 @@ import * as vscode from "vscode";
 const promoteCollectionFromImport = (
   collection: ExportableCollection
 ): void => {
-  const globalState: GlobalState = GlobalState.getInstance();
+  const globalState: WorkspaceState = WorkspaceState.getInstance();
   const workspace_path = globalState.workspace_uri_path;
   const restoredBreakpoints: vscode.SourceBreakpoint[] = [];
   globalState.collectionProvider?.createCollection(collection.name);

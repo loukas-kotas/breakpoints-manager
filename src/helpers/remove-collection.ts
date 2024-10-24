@@ -1,4 +1,4 @@
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { updateCollectionsInContext } from "./persist-collection";
 import { identifier } from '../extension';
 import { ExportableCollection } from '../models/collection-types.model';
@@ -13,7 +13,7 @@ import { CommandType } from "../command-type.model";
  * context and the collection tree provider.
  */
 export function removeCollection(collectionToDelete: ExportableCollection) {
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
 
   if (globalState.collectionProvider) {
     // Retrieve collections stored in context

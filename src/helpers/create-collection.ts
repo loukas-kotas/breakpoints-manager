@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { GlobalState } from "../global-state";
+import { WorkspaceState } from "../global-state";
 import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
 import { toExportableCollection } from "../helpers/to-breakpoint-internal";
 import { persistCollectionsToContext } from "../helpers/persist-collection";
@@ -17,7 +17,7 @@ import { createBreakpointCollection } from "../commands/create-breakpoint-collec
  */
 export function createCollection(requestedCollectionName: string | undefined) {
   const currentBreakpoints = vscode.debug.breakpoints; // Get current breakpoints
-  const globalState = GlobalState.getInstance();
+  const globalState = WorkspaceState.getInstance();
 
   if (requestedCollectionName && globalState.collectionProvider) {
     // Create a new collection with the current breakpoints
