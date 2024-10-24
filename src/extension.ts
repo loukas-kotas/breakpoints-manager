@@ -116,7 +116,7 @@ function init(context: vscode.ExtensionContext): void {
   globalState.context = context;
   
   // Load collections from context if they exist
-  globalState.context.globalState.update(identifier, loadCollectionsFromContext());
+  globalState.context.workspaceState.update(identifier, loadCollectionsFromContext());
 
   // empty selected collections
   globalState.selectedCollections = [];

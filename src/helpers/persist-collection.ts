@@ -68,6 +68,6 @@ export function updateCollectionsInContext(
   context: vscode.ExtensionContext,
   collections: BreakpointCollection[]
 ) {
-  context.globalState.update(identifier, []);
-  context.globalState.update(identifier, collections);
+  context.workspaceState.update(identifier, []);
+  context.workspaceState.update(identifier, collections);
 }
