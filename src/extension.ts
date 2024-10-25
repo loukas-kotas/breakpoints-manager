@@ -134,7 +134,7 @@ function init(context: vscode.ExtensionContext): void {
 
   globalState.treeView.onDidChangeCheckboxState((event) => {
     event.items.forEach(item => {
-      if (item[0].label.label === Labels.SelectAll) {
+      if (item[0].guid === Labels.SelectAll) {
         // return select all checkbox to previous state. Before change.
         item[0].checkboxState = item[0].checkboxState ? vscode.TreeItemCheckboxState.Unchecked : vscode.TreeItemCheckboxState.Checked;
         globalState.collectionProvider?.toggleSelectAll();

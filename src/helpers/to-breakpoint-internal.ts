@@ -30,5 +30,5 @@ export function toExportableCollection(
       toExportableBreakpoint(breakpoint, workspace_uri_path_length)
     );
   });
-  return { name: collection.name, breakpoints: exportable_breakpoints };
+  return { name: collection.name, guid: collection.guid, breakpoints: exportable_breakpoints };
 }

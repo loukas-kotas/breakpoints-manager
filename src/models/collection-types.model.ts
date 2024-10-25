@@ -3,11 +3,13 @@ import { ExportableBreakpoint } from "./exportable-breakpoint";
 
 export interface BreakpointCollection {
   name: string;
+  guid: string;
   breakpoints: vscode.Breakpoint[]; // Store breakpoints
 }
 
 export interface ExportableCollection {
   name: string;
+  guid: string;
   breakpoints: ExportableBreakpoint[];
 }
 

@@ -34,7 +34,7 @@ export function removeCollection(collectionToDelete: ExportableCollection) {
         );
         
         // update collection tree provider
-        globalState.collectionProvider.removeCollection({label: collectionToDelete.name}); // remove collection from the collection tree\
+        globalState.collectionProvider.removeCollection(collectionToDelete.guid); // remove collection from the collection tree
         globalState.collectionProvider.refresh();
 
         globalState.lastActionApplied = CommandType.RemoveSelectedCollections;

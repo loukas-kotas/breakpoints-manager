@@ -41,7 +41,7 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
   if (savedCollections?.length > 0) {
     try {
       savedCollections.map((savedCollection) => {
-        globalState.collectionProvider?.createCollection(savedCollection.name);
+        globalState.collectionProvider?.createCollection(savedCollection.name, savedCollection.guid);
         globalState.collectionProvider?.refresh();
       });
 

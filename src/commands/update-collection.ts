@@ -12,7 +12,7 @@ export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeIt
   try {
     // Find the selected collection
     const currentCollections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
-    const selectedCollection = currentCollections.find(collection => selectedCollectionItem.label.label === collection.name);
+    const selectedCollection = currentCollections.find(collection => selectedCollectionItem.guid === collection.guid);
 
     // Get current breakpoints
     const currentBreakpoints = vscode.debug.breakpoints;

@@ -14,11 +14,11 @@ export function onSelectionChange(): void {
     selection.forEach((collectionTreeItem) => {
       
       // If the user clicked the "Select All" select all the items
-      if (collectionTreeItem.label.label === Labels.SelectAll) {
+      if (collectionTreeItem.guid === Labels.SelectAll) {
         globalState.collectionProvider?.toggleSelectAll();
       } else {
         const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) ?? [];
-        const selectedCollection = contextCollections.find((item) => item.name === collectionTreeItem.label.label) as ExportableCollection;
+        const selectedCollection = contextCollections.find((item) => item.guid === collectionTreeItem.guid) as ExportableCollection;
         globalState.selectedCollections.push(selectedCollection);
       }
     });

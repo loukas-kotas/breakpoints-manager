@@ -28,7 +28,7 @@ export const setActiveCollectionHelper = async (
   const collections = globalState.context?.workspaceState.get(identifier) as BreakpointCollection[];
   const requestedCollection: BreakpointCollection | undefined = collections.find((col) => col.name === selectedCollectionName.label);
 
-  const selectedCollectionTreeItem: CollectionTreeItem | undefined = globalState.collectionProvider?.findTreeItem(selectedCollectionName.label);
+  const selectedCollectionTreeItem: CollectionTreeItem | undefined = globalState.collectionProvider?.findCollectionByGUID(selectedCollectionName.label);
   const selectedTreeItem = globalState.collectionProvider?.getTreeItem(selectedCollectionTreeItem!);
 
   updateIconForActiveCollection(globalState, selectedTreeItem);

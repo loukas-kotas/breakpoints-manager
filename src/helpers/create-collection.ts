@@ -32,7 +32,7 @@ export function createCollection(requestedCollectionName: string | undefined) {
       persistCollectionsToContext([exportableCollection]);
     }
     // Update Collection Tree Provider
-    globalState.collectionProvider.createCollection(exportableCollection.name);
+    globalState.collectionProvider.createCollection(exportableCollection.name, exportableCollection.guid);
 
     // Update last action applied
     globalState.lastActionApplied = CommandType.CreateCollection;

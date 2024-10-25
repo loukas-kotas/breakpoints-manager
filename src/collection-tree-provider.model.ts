@@ -18,7 +18,8 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
     this._selectAllItem = new CollectionTreeItem(
       {label: Labels.SelectAll},
       vscode.TreeItemCheckboxState.Unchecked,
-      false
+      false,
+      Labels.SelectAll
     );
   }
 
@@ -35,31 +36,21 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
     return [this._selectAllItem, ...this.collections];
   }
 
-  findTreeItem(name: string) {
-    return this.collections.find(
-      (collection) => collection.label.label === name
-    );
+  findCollectionByGUID(guid: string) {
+    return this.collections.find(collection => collection.guid === guid);
   }
 
-  createCollection(name: string): void {
+  createCollection(name: string, guid: string): void {
     const label: TreeItemLabel = { label: name, highlights: [[0, 100],[100,200]]};
-    this.collections.push(new CollectionTreeItem(label));
+    this.collections.push(new CollectionTreeItem(label, vscode.TreeItemCheckboxState.Unchecked, true, guid));
     this.refresh();
   }
 
-  createCollections(collectionNames: string[] | undefined): void {
-    collectionNames?.forEach((name) => {
-      this.createCollection(name);
-    });
-    this.refresh();
-  }
 
   // Remove collection method
-  removeCollection(collectionName: TreeItemLabel) {
+  removeCollection(guid: string) {
     // Filter out the collection to be removed
-    this.collections = this.collections.filter(
-      (col) => col.label.label !== collectionName.label
-    );
+    this.collections = this.collections.filter((col) => col.guid !== guid);
 
     // Unselect 'Select All / Unselect All' checkbox if no checkboxes exist
     if (this.collections.length === 0) {
@@ -71,9 +62,9 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
     this._onDidChangeTreeData.fire();
   }
 
-  removeCollections(collectionNames: TreeItemLabel[]) {
-    collectionNames.forEach((collectionName) =>
-      this.removeCollection(collectionName)
+  removeCollections(guids: string[]) {
+    guids.forEach((guid) =>
+      this.removeCollection(guid)
     );
     this._selectAllItem.checkboxState = vscode.TreeItemCheckboxState.Unchecked;
     this.refresh();
@@ -129,9 +120,11 @@ export class CollectionTreeItem extends vscode.TreeItem {
     public readonly label: vscode.TreeItemLabel,
     public checkboxState: vscode.TreeItemCheckboxState = vscode.TreeItemCheckboxState.Unchecked,
     public showIcons: boolean = true,
+    public guid: string,
   ) {
     super(label, vscode.TreeItemCollapsibleState.None);
     this.checkboxState = vscode.TreeItemCheckboxState.Unchecked;
+    this.guid = guid;  // Store the GUID for reference
 
     // Assign a unique context value based on whether the item should have icons
     this.contextValue = showIcons ? Labels.CollectionWithIcons : Labels.CollectionWithoutIcons;
