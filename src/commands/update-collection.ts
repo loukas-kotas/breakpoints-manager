@@ -21,7 +21,7 @@ export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeIt
     const workspace_uri_path_length = vscode.workspace.workspaceFolders![0].uri.path.length;
     const exportableBreakpoints = toExportableBreakpoints([...currentBreakpoints], workspace_uri_path_length);
 
-    selectedCollection!.breakpoints = JSON.parse(JSON.stringify(exportableBreakpoints));
+    selectedCollection!.breakpoints = exportableBreakpoints;
 
     if (globalState.context) {
       globalState.context.workspaceState.update(identifier, currentCollections);

@@ -17,7 +17,7 @@ export function toExportableBreakpoint(
   point: any,
   workspace_uri_path_length: number
 ) {
-  return new ExportableBreakpoint(
+  const exportableBreakpoint = new ExportableBreakpoint(
     `${point.location.uri.path.substring(workspace_uri_path_length)}`,
     point.location.range,
     point.enabled,
@@ -25,6 +25,9 @@ export function toExportableBreakpoint(
     point.hitCondition,
     point.logMessage
   );
+  // Deep clone the breakpoint object by serializing and deserializing it to strip away non-serializable properties, leaving a manageable set of values (e.g line).
+  const simplifiedExportableBreakpoint = JSON.parse(JSON.stringify(exportableBreakpoint));
+  return simplifiedExportableBreakpoint;
 }
 
 
