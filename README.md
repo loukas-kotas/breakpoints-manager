@@ -15,6 +15,9 @@ Additionally, the extension encourages collaboration by allowing developers to s
 >💡 After you install the extension visit the `debug section`, at the bottom you will notice a tab `Breakpoints Manager`. This is where you will handle your breakpoint collections.
 
 <br>
+  <img src="media/after-installation.png" alt="After Extension is Installed" width="800" height="500"/>
+
+<br>
 
 ## ✨ Features
 
