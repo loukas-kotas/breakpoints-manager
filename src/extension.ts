@@ -142,7 +142,7 @@ function init(context: vscode.ExtensionContext): void {
 
         switch (selectAllState) {
           case vscode.TreeItemCheckboxState.Checked:
-            const collections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+            const collections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
             globalState.selectedCollections = collections;
             break;
           case vscode.TreeItemCheckboxState.Unchecked:

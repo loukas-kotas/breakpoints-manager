@@ -17,7 +17,7 @@ export function onSelectionChange(): void {
       if (collectionTreeItem.label.label === Labels.SelectAll) {
         globalState.collectionProvider?.toggleSelectAll();
       } else {
-        const contextCollections: ExportableCollection[] = globalState.context?.globalState.get(identifier) ?? [];
+        const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) ?? [];
         const selectedCollection = contextCollections.find((item) => item.name === collectionTreeItem.label.label) as ExportableCollection;
         globalState.selectedCollections.push(selectedCollection);
       }

@@ -14,10 +14,10 @@ export function persistCollectionsToContext(
   collections: ExportableCollection[]
 ) {
   const globalState = WorkspaceState.getInstance();
-  const savedCollections = (globalState!.context?.globalState.get(
+  const savedCollections = (globalState!.context?.workspaceState.get(
     identifier
   )) as ExportableCollection[];
-  globalState!.context?.globalState.update(identifier, [
+  globalState!.context?.workspaceState.update(identifier, [
     ...savedCollections,
     ...collections,
   ]);
@@ -35,7 +35,7 @@ export function persistCollectionsToContext(
 export function loadCollectionsFromContext(): BreakpointCollection[] {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   const savedCollections =
-    globalState.context?.globalState.get<BreakpointCollection[]>(identifier) ??
+    globalState.context?.workspaceState.get<BreakpointCollection[]>(identifier) ??
     [];
 
   if (savedCollections?.length > 0) {

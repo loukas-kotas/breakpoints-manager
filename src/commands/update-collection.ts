@@ -11,7 +11,7 @@ export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeIt
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   try {
     // Find the selected collection
-    const currentCollections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    const currentCollections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     const selectedCollection = currentCollections.find(collection => selectedCollectionItem.label.label === collection.name);
 
     // Get current breakpoints

@@ -17,7 +17,7 @@ export function removeCollection(collectionToDelete: ExportableCollection) {
 
   if (globalState.collectionProvider) {
     // Retrieve collections stored in context
-    const contextCollections: ExportableCollection[] = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     
     // remove collection from context collections
     const remainingCollections = contextCollections.filter(

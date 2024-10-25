@@ -25,7 +25,7 @@ export const setActiveCollectionHelper = async (
   selectedCollectionName: TreeItemLabel
 ) => {
   const globalState = WorkspaceState.getInstance();
-  const collections = globalState.context?.globalState.get(identifier) as BreakpointCollection[];
+  const collections = globalState.context?.workspaceState.get(identifier) as BreakpointCollection[];
   const requestedCollection: BreakpointCollection | undefined = collections.find((col) => col.name === selectedCollectionName.label);
 
   const selectedCollectionTreeItem: CollectionTreeItem | undefined = globalState.collectionProvider?.findTreeItem(selectedCollectionName.label);
@@ -56,7 +56,7 @@ function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection |
   if (requestedCollection) {
     const workspace_path = vscode.workspace.workspaceFolders![0].uri.path;
     // Find selected collection
-    const currentCollections = globalState.context?.globalState.get(identifier) as ExportableCollection[];
+    const currentCollections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     const selectedCollection = currentCollections.find(collection => requestedCollection.name === collection.name);
 
     vscode.debug.removeBreakpoints(vscode.debug.breakpoints); // remove current breakpoints

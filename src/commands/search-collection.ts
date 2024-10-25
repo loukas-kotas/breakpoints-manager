@@ -10,7 +10,7 @@ export function SearchCollectionCommand() {
 
   if (globalState.collectionProvider) {
     const quickPick = vscode.window.createQuickPick();
-    const contextCollections: ExportableCollection[] = globalState.context?.globalState.get(identifier) ?? [];
+    const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) ?? [];
     quickPick.items = contextCollections.map(
       (item: ExportableCollection) => {
         return {
