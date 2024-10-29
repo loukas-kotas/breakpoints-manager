@@ -5,12 +5,12 @@ import { CommandType } from "../command-type.model";
 import { WorkspaceState } from "../global-state";
 import { identifier } from "../extension";
 
-export function SearchCollectionCommand() {
+export async function SearchCollectionCommand() {
   const globalState = WorkspaceState.getInstance();
 
   if (globalState.collectionProvider) {
     const quickPick = vscode.window.createQuickPick();
-    const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) ?? [];
+    const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(identifier) ?? [];
     quickPick.items = contextCollections.map(
       (item: ExportableCollection) => {
         return {

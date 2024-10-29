@@ -3,7 +3,7 @@ import { WorkspaceState } from "../global-state";
 import { exportCollections } from "../helpers/export-collection";
 import { showMessage } from "../helpers/messages";
 
-export async function ExportSelectedCollectionsCommand() {
+export function ExportSelectedCollectionsCommand() {
   const globalState = WorkspaceState.getInstance();
   const selectedCollections = globalState.selectedCollections;
   const fileTitle = `bm-exports-${new Date().getTime()}`;

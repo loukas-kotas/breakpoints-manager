@@ -64,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const importCollection = vscode.commands.registerCommand(
     CommandType.ImportCollection,
-    async () => {
+    () => {
       ImportCollectionCommand();
     }
   );
@@ -105,7 +105,7 @@ export function activate(context: vscode.ExtensionContext) {
 // This method is called when your extension is deactivated
 export function deactivate() {}
 
-function init(context: vscode.ExtensionContext): void {
+async function init(context: vscode.ExtensionContext): Promise<void> {
   // Initialize values
   const collectionTreeProvider = new CollectionTreeProvider();
   const treeView = vscode.window.createTreeView("breakpointsManager", {
@@ -116,7 +116,7 @@ function init(context: vscode.ExtensionContext): void {
   globalState.context = context;
   
   // Load collections from context if they exist
-  globalState.context.workspaceState.update(identifier, loadCollectionsFromContext());
+  await globalState.context.workspaceState.update(identifier, loadCollectionsFromContext());
 
   // empty selected collections
   globalState.selectedCollections = [];
@@ -133,7 +133,7 @@ function init(context: vscode.ExtensionContext): void {
   onSelectionChange();
 
   globalState.treeView.onDidChangeCheckboxState((event) => {
-    event.items.forEach(item => {
+    event.items.forEach(async item => {
       if (item[0].guid === Labels.SelectAll) {
         // return select all checkbox to previous state. Before change.
         item[0].checkboxState = item[0].checkboxState ? vscode.TreeItemCheckboxState.Unchecked : vscode.TreeItemCheckboxState.Checked;
@@ -142,7 +142,7 @@ function init(context: vscode.ExtensionContext): void {
 
         switch (selectAllState) {
           case vscode.TreeItemCheckboxState.Checked:
-            const collections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+            const collections = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
             globalState.selectedCollections = collections;
             break;
           case vscode.TreeItemCheckboxState.Unchecked:

@@ -11,13 +11,14 @@ export function onSelectionChange(): void {
   const globalState = WorkspaceState.getInstance();
   globalState?.treeView?.onDidChangeSelection((event) => {
     const selection = event.selection;
-    selection.forEach((collectionTreeItem) => {
+    if (selection && selection.length === 0) { return; } 
+    selection.forEach(async (collectionTreeItem) => {
       
       // If the user clicked the "Select All" select all the items
       if (collectionTreeItem.guid === Labels.SelectAll) {
         globalState.collectionProvider?.toggleSelectAll();
       } else {
-        const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) ?? [];
+        const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(identifier) ?? [];
         const selectedCollection = contextCollections.find((item) => item.guid === collectionTreeItem.guid) as ExportableCollection;
         globalState.selectedCollections.push(selectedCollection);
       }

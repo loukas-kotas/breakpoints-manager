@@ -10,7 +10,7 @@ import { BreakpointCollection, ExportableCollection } from "../models/collection
 import { convertToSourceBreakpoints } from "../helpers/convert-to-source-breakpoint";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 
-export async function SetActiveCollectionCommand(
+export function SetActiveCollectionCommand(
   selectedCollection: CollectionTreeItem
 ) {
   const globalState = WorkspaceState.getInstance();
@@ -25,7 +25,7 @@ export const setActiveCollectionHelper = async (
   selectedCollectionName: TreeItemLabel
 ) => {
   const globalState = WorkspaceState.getInstance();
-  const collections = globalState.context?.workspaceState.get(identifier) as BreakpointCollection[];
+  const collections = await globalState.context?.workspaceState.get(identifier) as BreakpointCollection[];
   const requestedCollection: BreakpointCollection | undefined = collections.find((col) => col.name === selectedCollectionName.label);
 
   const selectedCollectionTreeItem: CollectionTreeItem | undefined = globalState.collectionProvider?.findCollectionByGUID(selectedCollectionName.label);
@@ -52,11 +52,11 @@ export const setActiveCollectionHelper = async (
  * the user. It is used to display messages to the user indicating the status of the operation, such as
  * showing an information message when the active collection is set or
  */
-function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection | undefined, globalState: WorkspaceState, selectedCollectionName: vscode.TreeItemLabel) {
+async function setActiveCollectionTreeItem(requestedCollection: BreakpointCollection | undefined, globalState: WorkspaceState, selectedCollectionName: vscode.TreeItemLabel) {
   if (requestedCollection) {
     const workspace_path = vscode.workspace.workspaceFolders![0].uri.path;
     // Find selected collection
-    const currentCollections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+    const currentCollections = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     const selectedCollection = currentCollections.find(collection => requestedCollection.name === collection.name);
 
     vscode.debug.removeBreakpoints(vscode.debug.breakpoints); // remove current breakpoints

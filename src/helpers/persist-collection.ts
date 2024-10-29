@@ -10,14 +10,14 @@ import { showMessage } from "./messages";
  * @param {ExportableCollection[]} collections - The `collections` parameter in the
  * `persistCollectionsToContext` function is an array of `ExportableCollection` objects.
  */
-export function persistCollectionsToContext(
+export async function persistCollectionsToContext(
   collections: ExportableCollection[]
 ) {
   const globalState = WorkspaceState.getInstance();
-  const savedCollections = (globalState!.context?.workspaceState.get(
+  const savedCollections = (await globalState!.context?.workspaceState.get(
     identifier
   )) as ExportableCollection[];
-  globalState!.context?.workspaceState.update(identifier, [
+  await globalState!.context?.workspaceState.update(identifier, [
     ...savedCollections,
     ...collections,
   ]);
@@ -32,10 +32,10 @@ export function persistCollectionsToContext(
  * this process, it logs the error and shows an information message indicating that the transformation
  * of context collections failed. If there are no saved collections, an
  */
-export function loadCollectionsFromContext(): BreakpointCollection[] {
+export async function loadCollectionsFromContext(): Promise<BreakpointCollection[]> {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   const savedCollections =
-    globalState.context?.workspaceState.get<BreakpointCollection[]>(identifier) ??
+    await globalState.context?.workspaceState.get<BreakpointCollection[]>(identifier) ??
     [];
 
   if (savedCollections?.length > 0) {
@@ -64,10 +64,10 @@ export function loadCollectionsFromContext(): BreakpointCollection[] {
  * @param {BreakpointCollection[]} collections - The `collections` parameter is an array of
  * `BreakpointCollection` objects.
  */
-export function updateCollectionsInContext(
+export async function updateCollectionsInContext(
   context: vscode.ExtensionContext,
   collections: BreakpointCollection[]
 ) {
-  context.workspaceState.update(identifier, []);
-  context.workspaceState.update(identifier, collections);
+  await context.workspaceState.update(identifier, []);
+  await context.workspaceState.update(identifier, collections);
 }

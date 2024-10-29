@@ -7,11 +7,11 @@ import { CollectionTreeItem } from "../collection-tree-provider.model";
 import { identifier } from "../extension";
 import {  toExportableBreakpoints } from "../helpers/create-exportable-breakpoint";
 
-export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeItem) {
+export async function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeItem) {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   try {
     // Find the selected collection
-    const currentCollections = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+    const currentCollections = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     const selectedCollection = currentCollections.find(collection => selectedCollectionItem.guid === collection.guid);
 
     // Get current breakpoints
@@ -24,7 +24,7 @@ export function UpdateCollectionCommand(selectedCollectionItem: CollectionTreeIt
     selectedCollection!.breakpoints = exportableBreakpoints;
 
     if (globalState.context) {
-      globalState.context.workspaceState.update(identifier, currentCollections);
+      await globalState.context.workspaceState.update(identifier, currentCollections);
       globalState.collectionProvider?.refresh();
     }
 

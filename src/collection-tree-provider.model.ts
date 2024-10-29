@@ -55,23 +55,8 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
     // Unselect 'Select All / Unselect All' checkbox if no checkboxes exist
     if (this.collections.length === 0) {
       this._selectAllItem.checkboxState = vscode.TreeItemCheckboxState.Unchecked;
-      this.refresh();
     }
-
-    // Refresh the tree view
-    this._onDidChangeTreeData.fire();
-  }
-
-  removeCollections(guids: string[]) {
-    guids.forEach((guid) =>
-      this.removeCollection(guid)
-    );
-    this._selectAllItem.checkboxState = vscode.TreeItemCheckboxState.Unchecked;
     this.refresh();
-  }
-
-  removeAllCollections(): void {
-    this.collections = [];
 
     // Refresh the tree view
     this._onDidChangeTreeData.fire();

@@ -12,17 +12,15 @@ import { CommandType } from "../command-type.model";
  * `ExportableCollection` object that represents the collection that needs to be removed from the
  * context and the collection tree provider.
  */
-export function removeCollection(collectionToDelete: ExportableCollection) {
+export async function removeCollection(collectionToDelete: ExportableCollection) {
   const globalState = WorkspaceState.getInstance();
 
   if (globalState.collectionProvider) {
     // Retrieve collections stored in context
-    const contextCollections: ExportableCollection[] = globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+    const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
     
     // remove collection from context collections
-    const remainingCollections = contextCollections.filter(
-      (col) => col.name !== collectionToDelete.name
-    );
+    const remainingCollections = contextCollections.filter((col) => col.guid !== collectionToDelete.guid);
 
     try {
       if (globalState.context) {
@@ -51,6 +49,6 @@ export function removeCollection(collectionToDelete: ExportableCollection) {
  * @param {ExportableCollection[]} collectionsToDelete - An array of ExportableCollection objects that
  * need to be deleted.
  */
-export function removeCollections(collectionsToDelete: ExportableCollection[]) {
-  collectionsToDelete.forEach((collectionToDelete) => removeCollection(collectionToDelete));
+export async function removeCollections(collectionsToDelete: ExportableCollection[]) {
+  await collectionsToDelete.forEach((collectionToDelete) => removeCollection(collectionToDelete));
 }
