@@ -19,10 +19,7 @@ import {
 } from "./commands";
 import { WorkspaceState } from "./global-state";
 import { onSelectionChange } from "./helpers/on-selection-change";
-import { Labels } from "./models/labels.model";
-import { ExportableCollection } from "./models/collection-types.model";
-
-export const identifier = "breakpointCollections";
+import { CommonKeys, Labels, ExportableCollection} from "./models";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -116,7 +113,7 @@ async function init(context: vscode.ExtensionContext): Promise<void> {
   globalState.context = context;
   
   // Load collections from context if they exist
-  await globalState.context.workspaceState.update(identifier, loadCollectionsFromContext());
+  await globalState.context.workspaceState.update(CommonKeys.IDENTIFIER, loadCollectionsFromContext());
 
   // empty selected collections
   globalState.selectedCollections = [];
@@ -142,7 +139,7 @@ async function init(context: vscode.ExtensionContext): Promise<void> {
 
         switch (selectAllState) {
           case vscode.TreeItemCheckboxState.Checked:
-            const collections = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+            const collections = await globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER) as ExportableCollection[];
             globalState.selectedCollections = collections;
             break;
           case vscode.TreeItemCheckboxState.Unchecked:

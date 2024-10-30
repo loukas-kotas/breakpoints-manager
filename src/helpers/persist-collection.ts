@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
-import { identifier } from "../extension";
 import { WorkspaceState } from "../global-state";
 import { showMessage } from "./messages";
+import { CommonKeys } from "../models";
 
 /**
  * The function persistCollectionsToContext asynchronously updates a global state with new breakpoint
@@ -15,9 +15,9 @@ export async function persistCollectionsToContext(
 ) {
   const globalState = WorkspaceState.getInstance();
   const savedCollections = (await globalState!.context?.workspaceState.get(
-    identifier
+    CommonKeys.IDENTIFIER
   )) as ExportableCollection[];
-  await globalState!.context?.workspaceState.update(identifier, [
+  await globalState!.context?.workspaceState.update(CommonKeys.IDENTIFIER, [
     ...savedCollections,
     ...collections,
   ]);
@@ -35,7 +35,7 @@ export async function persistCollectionsToContext(
 export async function loadCollectionsFromContext(): Promise<BreakpointCollection[]> {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   const savedCollections =
-    await globalState.context?.workspaceState.get<BreakpointCollection[]>(identifier) ??
+    await globalState.context?.workspaceState.get<BreakpointCollection[]>(CommonKeys.IDENTIFIER) ??
     [];
 
   if (savedCollections?.length > 0) {
@@ -68,6 +68,6 @@ export async function updateCollectionsInContext(
   context: vscode.ExtensionContext,
   collections: BreakpointCollection[]
 ) {
-  await context.workspaceState.update(identifier, []);
-  await context.workspaceState.update(identifier, collections);
+  await context.workspaceState.update(CommonKeys.IDENTIFIER, []);
+  await context.workspaceState.update(CommonKeys.IDENTIFIER, collections);
 }

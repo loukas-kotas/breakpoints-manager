@@ -1,9 +1,9 @@
 import { WorkspaceState } from "../global-state";
 import { updateCollectionsInContext } from "./persist-collection";
-import { identifier } from '../extension';
 import { ExportableCollection } from '../models/collection-types.model';
 import { showMessage } from "./messages";
 import { CommandType } from "../command-type.model";
+import { CommonKeys } from "../models";
 
 /**
  * The function `removeCollection` removes a specified collection from a global state and updates the
@@ -17,7 +17,7 @@ export async function removeCollection(collectionToDelete: ExportableCollection)
 
   if (globalState.collectionProvider) {
     // Retrieve collections stored in context
-    const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(identifier) as ExportableCollection[];
+    const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER) as ExportableCollection[];
     
     // remove collection from context collections
     const remainingCollections = contextCollections.filter((col) => col.guid !== collectionToDelete.guid);

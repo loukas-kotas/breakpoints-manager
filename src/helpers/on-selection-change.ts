@@ -1,5 +1,5 @@
-import { identifier } from "../extension";
 import { WorkspaceState } from "../global-state";
+import { CommonKeys } from "../models";
 import { ExportableCollection } from "../models/collection-types.model";
 import { Labels } from "../models/labels.model";
 
@@ -18,7 +18,7 @@ export function onSelectionChange(): void {
       if (collectionTreeItem.guid === Labels.SelectAll) {
         globalState.collectionProvider?.toggleSelectAll();
       } else {
-        const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(identifier) ?? [];
+        const contextCollections: ExportableCollection[] = await globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER) ?? [];
         const selectedCollection = contextCollections.find((item) => item.guid === collectionTreeItem.guid) as ExportableCollection;
         globalState.selectedCollections.push(selectedCollection);
       }

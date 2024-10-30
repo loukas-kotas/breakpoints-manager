@@ -1,12 +1,14 @@
 import { WorkspaceState } from "../global-state";
 import { showMessage, showMessageWithTimeout } from "../helpers/messages";
 import { removeCollections } from "../helpers/remove-collection";
+import { CommonKeys } from "../models";
 
 export async function DeleteSelectedCollectionsCommand() {
   const globalState = WorkspaceState.getInstance();
   const selectedCollections = globalState.selectedCollections;
 
   if (selectedCollections.length === 0) {
+    console.warn(globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER));
     showMessage('You have not selected any collections', 'warning');
     return;
   }
