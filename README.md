@@ -79,6 +79,12 @@ Here are demonstrations of how each feature works:
 
 <br>
 
+## Changelog
+
+Stay updated with the latest changes and improvements! You can find a detailed list of all updates in the [CHANGELOG](https://github.com/loukas-kotas/breakpoints-manager/blob/main/CHANGELOG.md).
+
+<br>
+
 
 ## Bug Reports & Feature Requests
 
