@@ -5,6 +5,12 @@ import { removeCollections } from "../helpers/remove-collection";
 export async function DeleteSelectedCollectionsCommand() {
   const globalState = WorkspaceState.getInstance();
   const selectedCollections = globalState.selectedCollections;
+
+  if (selectedCollections.length === 0) {
+    showMessage('You have not selected any collections', 'warning');
+    return;
+  }
+
   try {
     await removeCollections(selectedCollections);
     
