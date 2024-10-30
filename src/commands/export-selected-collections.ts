@@ -20,5 +20,6 @@ export function ExportSelectedCollectionsCommand() {
     }
   } catch (error) {
     showMessage(`ERROR: Could not export collections`, 'error');
+    console.log(`[ERROR] Could not export collections: `, error);
   }
 }

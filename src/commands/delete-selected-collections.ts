@@ -14,6 +14,6 @@ export async function DeleteSelectedCollectionsCommand() {
   } catch (error) {
     // Display error message 
     showMessage("ERROR: Could not remove selected collections please try again", 'error');
-    console.error(`Breakpoints Manager`, error);
+    console.error(`[ERROR] Could not remove selected collections: `, error);
   }
 }

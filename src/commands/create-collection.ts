@@ -5,5 +5,9 @@ export async function CreateCollectionCommand() {
   const requestedCollectionName = await vscode.window.showInputBox({
     prompt: "Enter collection name",
   });
-  createCollection(requestedCollectionName);
+  try {
+    createCollection(requestedCollectionName);
+  } catch (error) {
+    console.error(`[ERROR] Could not create Collection: `, error);
+  }
 }

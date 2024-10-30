@@ -30,7 +30,8 @@ export async function UpdateCollectionCommand(selectedCollectionItem: Collection
 
     globalState.lastActionApplied = CommandType.UpdateCollection;
     showMessageWithTimeout(`Collection ${selectedCollection?.name} updated!`);
-  } catch (e) {
+  } catch (error) {
     showMessage("Could not Update Collection", 'error');
+    console.error(`[ERROR] Could not update collection `, error);
   }
 }

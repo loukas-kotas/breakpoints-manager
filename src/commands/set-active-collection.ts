@@ -88,7 +88,8 @@ function updateIconForActiveCollection(globalState: WorkspaceState, selectedTree
       selectedTreeItem.iconPath = new vscode.ThemeIcon('check', new vscode.ThemeColor('charts.green'));
       globalState.collectionProvider?.refresh();
     }
-  } catch (e) {
+  } catch (error) {
     showMessage('Error: on selecting the tree item', 'error');
+    console.error(`[ERROR] Could not set icon to active collection`, error);
   }
 }
