@@ -18,8 +18,8 @@ import {
   UpdateCollectionCommand,
 } from "./commands";
 import { WorkspaceState } from "./global-state";
-import { onSelectionChange } from "./helpers/on-selection-change";
-import { CommonKeys, Labels, ExportableCollection} from "./models";
+import { CommonKeys } from "./models";
+import { listenCheckboxChanges } from "./helpers/listen-checkbox-changes";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -126,29 +126,9 @@ async function init(context: vscode.ExtensionContext): Promise<void> {
   globalState.workspace_uri_path =
     vscode.workspace.workspaceFolders![0].uri.path;
 
-  // Listen for changes when a selection changes
-  onSelectionChange();
-
-  globalState.treeView.onDidChangeCheckboxState((event) => {
-    event.items.forEach(async item => {
-      if (item[0].guid === Labels.SelectAll) {
-        // return select all checkbox to previous state. Before change.
-        item[0].checkboxState = item[0].checkboxState ? vscode.TreeItemCheckboxState.Unchecked : vscode.TreeItemCheckboxState.Checked;
-        globalState.collectionProvider?.toggleSelectAll();
-        const selectAllState: vscode.TreeItemCheckboxState | undefined = globalState.collectionProvider?.getSelectAllState();
-
-        switch (selectAllState) {
-          case vscode.TreeItemCheckboxState.Checked:
-            const collections = await globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER) as ExportableCollection[];
-            globalState.selectedCollections = collections;
-            break;
-          case vscode.TreeItemCheckboxState.Unchecked:
-            globalState.selectedCollections = [];
-            break;
-          default: 
-            // do nothing
-        }
-      }
-    });
-  });
+  /**
+   * Observing only if the user clicked "Select / Unselect All". 
+   */
+  // Listen for changes when a selection checkbox changes state.
+  listenCheckboxChanges();
 }
