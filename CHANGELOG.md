@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2025-03-07
+
+### Added
+- Additional error messages
+
+### Changed
+- Central handling for checkbox treeview updates 
+
+### Fixed
+- Broken extension for vscode v1.97+
+
+### Known Issues
+- No known issues were introduced in this version.
+
 ## [0.1.1] - 2025-02-25
 
 ### Added
