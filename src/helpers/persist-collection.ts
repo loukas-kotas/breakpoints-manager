@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
-import { BreakpointCollection, ExportableCollection } from "../models/collection-types.model";
+import {
+  BreakpointCollection,
+  ExportableCollection,
+} from "../models/collection-types.model";
 import { WorkspaceState } from "../global-state";
 import { showMessage } from "./messages";
 import { CommonKeys } from "../models";
@@ -13,14 +16,25 @@ import { CommonKeys } from "../models";
 export async function persistCollectionsToContext(
   collections: ExportableCollection[]
 ) {
-  const globalState = WorkspaceState.getInstance();
-  const savedCollections = (await globalState!.context?.workspaceState.get(
-    CommonKeys.IDENTIFIER
-  )) as ExportableCollection[];
-  await globalState!.context?.workspaceState.update(CommonKeys.IDENTIFIER, [
-    ...savedCollections,
-    ...collections,
-  ]);
+  try {
+    const globalState = WorkspaceState.getInstance();
+    const savedCollectionsRaw = (await globalState!.context?.workspaceState.get<
+      ExportableCollection[]
+    >(CommonKeys.IDENTIFIER, [])) as ExportableCollection[];
+
+    const savedCollections = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
+
+    await globalState!.context?.workspaceState.update(CommonKeys.IDENTIFIER, [
+      ...savedCollections,
+      ...collections,
+    ]);
+  } catch (error) {
+    console.error(
+      `[BreakpointsManager] Error persisting collections to context: `,
+      error
+    );
+    throw error;
+  }
 }
 
 /**
@@ -32,23 +46,31 @@ export async function persistCollectionsToContext(
  * this process, it logs the error and shows an information message indicating that the transformation
  * of context collections failed. If there are no saved collections, an
  */
-export async function loadCollectionsFromContext(): Promise<BreakpointCollection[]> {
+export async function loadCollectionsFromContext(): Promise<
+  BreakpointCollection[]
+> {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
-  const savedCollections =
-    await globalState.context?.workspaceState.get<BreakpointCollection[]>(CommonKeys.IDENTIFIER) ??
-    [];
+  const savedCollectionsRaw =
+    (await globalState.context?.workspaceState.get<BreakpointCollection[]>(
+      CommonKeys.IDENTIFIER, []
+    )) ?? [];
+
+  const savedCollections = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
 
   if (savedCollections?.length > 0) {
     try {
       savedCollections.map((savedCollection) => {
-        globalState.collectionProvider?.createCollection(savedCollection.name, savedCollection.guid);
+        globalState.collectionProvider?.createCollection(
+          savedCollection.name,
+          savedCollection.guid
+        );
         globalState.collectionProvider?.refresh();
       });
 
       return savedCollections || [];
     } catch (error) {
       console.error(error);
-      showMessage("Failed to transform context collections", 'error');
+      showMessage("Failed to transform context collections", "error");
     }
   }
 
