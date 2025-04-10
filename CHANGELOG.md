@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2025-04-10
+
+### Added
+- No changes were added in this release
+
+### Changed
+- No changes were added in this release
+
+### Fixed
+- Not activating collection after vscode window reload
+
+### Known Issues
+- No known issues were introduced in this version.
+
 ## [0.1.2] - 2025-03-07
 
 ### Added
