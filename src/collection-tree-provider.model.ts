@@ -40,7 +40,7 @@ export class CollectionTreeProvider implements vscode.TreeDataProvider<Collectio
     return this.collections.find(collection => collection.guid === guid);
   }
 
-  createCollection(name: string, guid: string): void {
+  addCollectionToTree(name: string, guid: string): void {
     const label: TreeItemLabel = { label: name, highlights: [[0, 100],[100,200]]};
     this.collections.push(new CollectionTreeItem(label, vscode.TreeItemCheckboxState.Unchecked, true, guid));
     this.refresh();

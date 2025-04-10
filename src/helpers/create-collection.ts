@@ -33,7 +33,7 @@ export async function createCollection(requestedCollectionName: string | undefin
         await persistCollectionsToContext([exportableCollection]);
       }
       // Update Collection Tree Provider
-      globalState.collectionProvider.createCollection(exportableCollection.name, exportableCollection.guid);
+      globalState.collectionProvider.addCollectionToTree(exportableCollection.name, exportableCollection.guid);
   
       // Update last action applied
       globalState.lastActionApplied = CommandType.CreateCollection;

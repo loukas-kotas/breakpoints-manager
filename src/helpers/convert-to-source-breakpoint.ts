@@ -22,6 +22,11 @@ export function convertToSourceBreakpoint(
   workspace_path: string
 ): vscode.SourceBreakpoint | undefined {
   try {
+
+    if (!point?.line) {
+      throw new Error('Breakpoint has wrong format');
+    }
+
     return new vscode.SourceBreakpoint(
       new vscode.Location(
         vscode.Uri.file(`${workspace_path}${point.location}`),

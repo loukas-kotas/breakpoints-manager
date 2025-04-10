@@ -22,7 +22,7 @@ export async function persistCollectionsToContext(
       ExportableCollection[]
     >(CommonKeys.IDENTIFIER, [])) as ExportableCollection[];
 
-    const savedCollections = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
+    const savedCollections: ExportableCollection[] = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
 
     await globalState!.context?.workspaceState.update(CommonKeys.IDENTIFIER, [
       ...savedCollections,
@@ -47,24 +47,27 @@ export async function persistCollectionsToContext(
  * of context collections failed. If there are no saved collections, an
  */
 export async function loadCollectionsFromContext(): Promise<
-  BreakpointCollection[]
+  ExportableCollection[]
 > {
   const globalState: WorkspaceState = WorkspaceState.getInstance();
   const savedCollectionsRaw =
-    (await globalState.context?.workspaceState.get<BreakpointCollection[]>(
+    (await globalState.context?.workspaceState.get<ExportableCollection[]>(
       CommonKeys.IDENTIFIER, []
     )) ?? [];
 
-  const savedCollections = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
+  const savedCollections: ExportableCollection[] = Array.isArray(savedCollectionsRaw) ? savedCollectionsRaw : [];
 
   if (savedCollections?.length > 0) {
     try {
       savedCollections.map((savedCollection) => {
-        globalState.collectionProvider?.createCollection(
+        // update tree with collection
+        globalState.collectionProvider?.addCollectionToTree(
           savedCollection.name,
           savedCollection.guid
         );
+        // refresh tree to see collections
         globalState.collectionProvider?.refresh();
+        return savedCollection;
       });
 
       return savedCollections || [];

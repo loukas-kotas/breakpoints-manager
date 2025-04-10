@@ -113,7 +113,8 @@ async function init(context: vscode.ExtensionContext): Promise<void> {
   globalState.context = context;
   
   // Load collections from context if they exist
-  await globalState.context.workspaceState.update(CommonKeys.IDENTIFIER, loadCollectionsFromContext());
+  const restoredCollections = await loadCollectionsFromContext();
+  await globalState.context.workspaceState.update(CommonKeys.IDENTIFIER, restoredCollections);
 
   // empty selected collections
   globalState.selectedCollections = [];

@@ -57,7 +57,7 @@ async function setActiveCollectionTreeItem(requestedCollection: BreakpointCollec
     const workspace_path = vscode.workspace.workspaceFolders![0].uri.path;
     // Find selected collection
     const currentCollections = await globalState.context?.workspaceState.get(CommonKeys.IDENTIFIER) as ExportableCollection[];
-    const selectedCollection = currentCollections.find(collection => requestedCollection.name === collection.name);
+    const selectedCollection = currentCollections.find(collection => requestedCollection.guid === collection.guid);
 
     vscode.debug.removeBreakpoints(vscode.debug.breakpoints); // remove current breakpoints
     vscode.debug.addBreakpoints(convertToSourceBreakpoints(selectedCollection!.breakpoints, workspace_path)); // load selected collection's breakpoints
