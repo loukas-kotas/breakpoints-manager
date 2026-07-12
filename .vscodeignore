@@ -16,3 +16,7 @@ pnpm-lock.yaml
 package-lock.json
 plans/**
 .kilo/**
+posts/**
+RELEASE-NOTES.md
+scripts/**
+out/test/**
