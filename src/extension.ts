@@ -20,6 +20,7 @@ import {
 import { WorkspaceState } from "./global-state";
 import { CommonKeys } from "./models";
 import { listenCheckboxChanges } from "./helpers/listen-checkbox-changes";
+import { startMcpBridge, showMcpStatus, stopMcpBridge } from "./mcp-bridge/bridge";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -80,6 +81,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const showMcpStatusCommand = vscode.commands.registerCommand(
+    CommandType.ShowMcpStatus,
+    () => {
+      showMcpStatus();
+    }
+  );
+
   const updateCollection = vscode.commands.registerCommand(
     CommandType.UpdateCollection,
     (selectedCollection: CollectionTreeItem) => {
@@ -95,12 +103,15 @@ export function activate(context: vscode.ExtensionContext) {
     importCollection,
     refreshTree,
     searchCollection,
-    updateCollection
+    updateCollection,
+    showMcpStatusCommand
   );
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  stopMcpBridge();
+}
 
 async function init(context: vscode.ExtensionContext): Promise<void> {
   // Initialize values
@@ -120,16 +131,19 @@ async function init(context: vscode.ExtensionContext): Promise<void> {
   globalState.selectedCollections = [];
 
   // store workspace path length of current directory
-  globalState.workspace_uri_path_length =
-    vscode.workspace.workspaceFolders![0].uri.path.length;
-
-  // store workspace path of current directory
-  globalState.workspace_uri_path =
-    vscode.workspace.workspaceFolders![0].uri.path;
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (workspaceFolders && workspaceFolders.length > 0) {
+    globalState.workspace_uri_path_length =
+      workspaceFolders[0].uri.path.length;
+    globalState.workspace_uri_path = workspaceFolders[0].uri.path;
+  }
 
   /**
    * Observing only if the user clicked "Select / Unselect All". 
    */
   // Listen for changes when a selection checkbox changes state.
   listenCheckboxChanges();
+
+  // Start the MCP bridge so AI tools can manage breakpoints via the MCP server.
+  await startMcpBridge();
 }

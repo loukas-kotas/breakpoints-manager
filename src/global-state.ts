@@ -18,6 +18,9 @@ export class WorkspaceState {
   public workspace_uri_path: string | undefined;
   public treeView: vscode.TreeView<CollectionTreeItem> | undefined;
   public selectedCollections: ExportableCollection[] = [];
+  /** Port the in-extension MCP bridge HTTP server is listening on (0 when not started). */
+  public mcpBridgePort: number | undefined;
+  public mcpBridgeToken: string | undefined; // Random bearer token the MCP server must send in the `Authorization` header.
 
   // Private constructor to prevent instantiation from outside
   private constructor() {}

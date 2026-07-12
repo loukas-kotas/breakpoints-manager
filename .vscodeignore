@@ -9,3 +9,10 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+shared/**
+mcp-server/**
+pnpm-workspace.yaml
+pnpm-lock.yaml
+package-lock.json
+plans/**
+.kilo/**

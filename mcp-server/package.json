@@ -1,0 +1,37 @@
+{
+  "name": "@breakpoints-manager/mcp-server",
+  "version": "0.1.1",
+  "description": "MCP server that lets AI tools manage VS Code breakpoints through the Breakpoints Manager extension.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "bin": {
+    "breakpoints-manager-mcp": "./dist/src/index.js"
+  },
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "start": "node ./dist/src/index.js",
+    "test": "tsc -p ./ && node --test dist/test",
+    "publish": "pnpm build && npm publish --access public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@breakpoints-manager/shared": "workspace:*",
+    "@types/node": "20.x",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -7,4 +7,5 @@ export enum CommandType {
   SearchCollection = "breakpointsmanager.searchCollection",
   SetActiveCollection = "breakpointsmanager.setActiveCollection",
   UpdateCollection = "breakpointsmanager.updateCollection",
+  ShowMcpStatus = "breakpointsmanager.showMcpStatus",
 }
