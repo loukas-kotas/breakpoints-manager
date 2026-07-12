@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-07-12
+
+### Added
+- MCP integration: the extension now runs a local HTTP bridge so AI tools can manage breakpoints through the Breakpoints Manager.
+- New `@breakpoints-manager/mcp-server` package (published to npm) that lets AI coding assistants create, update, list, and remove breakpoint collections via the Model Context Protocol.
+- "Show MCP Bridge Status" command to inspect the running bridge URL and token location.
+
+### Changed
+- Migrated the repo to a pnpm workspace (`shared`, `mcp-server`, and the extension).
+- Minimum VS Code version set to `^1.92.0`.
+
+### Fixed
+- No bug fixes in this release.
+
+### Known Issues
+- No known issues were introduced in this version.
+
 ## [0.1.3] - 2025-04-10
 
 ### Added

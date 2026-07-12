@@ -47,9 +47,6 @@ importers:
 
   mcp-server:
     dependencies:
-      '@breakpoints-manager/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.0
         version: 1.29.0(zod@3.25.76)
@@ -57,6 +54,9 @@ importers:
         specifier: ^3.23.8
         version: 3.25.76
     devDependencies:
+      '@breakpoints-manager/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@types/node':
         specifier: 20.x
         version: 20.19.43
